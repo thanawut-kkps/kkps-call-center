@@ -41,6 +41,7 @@ namespace Phatra.CallCenter.Data
         public string AddrRegister { get; set; }
         public string SSUFlag { get; set; }
         public string AgreementType { get; set; }
+        public string ClientTier { get; set; }
 
         #endregion
 

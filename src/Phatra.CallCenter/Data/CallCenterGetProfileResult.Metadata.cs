@@ -130,6 +130,10 @@ namespace Phatra.CallCenter.Data
             [Display(Name = "Agreement Type")]
             [StringLength(100, ErrorMessage = "Agreement Type must be under 100 characters.")]
             public string AgreementType { get; set; }
+            
+            [Display(Name = "Client Tier")]
+            [StringLength(50, ErrorMessage = "Client Tier must be under 50 characters.")]
+            public string ClientTier { get; set; }
 
             #endregion
 

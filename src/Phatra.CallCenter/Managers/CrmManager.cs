@@ -61,6 +61,7 @@ namespace Phatra.CallCenter.Managers
                     item.FATCATypeDesc = dt.Rows[i]["FATCA_Type_Desc"].ConvertTo<string>();          
                     item.SSUFlag = dt.Rows[i]["SSU_Flag"].ConvertTo<string>();
                     item.AgreementType = dt.Rows[i]["agreement_type"].ConvertTo<string>();
+                    item.ClientTier = dt.Rows[i]["client_tier"].ConvertTo<string>();
                 }
             }
             return item;

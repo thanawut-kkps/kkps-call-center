@@ -200,6 +200,7 @@
           <Property Type="String" Name="addr_register" Nullable="true" MaxLength="400" />
           <Property Type="String" Name="SSU_Flag" Nullable="true" MaxLength="1" />
           <Property Type="String" Name="agreement_type" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="client_tier" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="CallCenterGetAddrInfoResult">
           <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
@@ -515,6 +516,7 @@
                 <ScalarProperty Name="addr_register" ColumnName="addr_register" />
                 <ScalarProperty Name="SSU_Flag" ColumnName="SSU_Flag" />
                 <ScalarProperty Name="agreement_type" ColumnName="agreement_type" />
+                <ScalarProperty Name="client_tier" ColumnName="client_tier" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -23,6 +23,7 @@ namespace Phatra.CallCenter.Data
         public string CanTrade { get; set; }
 
         #endregion
+
     }
     
 }

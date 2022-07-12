@@ -743,7 +743,8 @@ namespace Phatra.CallCenter.Managers
                         AccountNameT = dt.Rows[i]["account_name_t"].ConvertTo<string>(),
                         AccountNameE = dt.Rows[i]["account_name_e"].ConvertTo<string>(),
                         Trader = dt.Rows[i]["trader"].ConvertTo<string>(),
-                        PidNo = dt.Rows[i]["pid_no"].ConvertTo<string>()
+                        PidNo = dt.Rows[i]["pid_no"].ConvertTo<string>(),
+                        ClientTier = dt.Rows[i]["client_tier"].ConvertTo<string>()
                     };
 
                     list.Add(item);

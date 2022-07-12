@@ -6,13 +6,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="col-md-2 text-center">
+                <th class="col-md-1 text-center">
                     AC#
                 </th>
                 <th class="col-md-2 text-center">
                     Product
                 </th>
-                <th class="col-md-3">
+                <th class="col-md-2">
                     Thai Name
                 </th>
                 <th class="col-md-2">
@@ -24,6 +24,9 @@
                 <th class="col-md-1 text-center">
                     ID
                 </th>
+                <th class="col-md-2 text-center">
+                    Client Tier
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -31,33 +34,36 @@
             {
                 foreach (var item in Model)
                 {
-                <tr>
-                    <td class="text-center">
-                        <a onclick="onClientSelected(@(item.ClientId ?? -1), '@item.AccountNo', '@item.Product')" href="javascript:void(0);" class="account-no-link">@item.AccountNo</a>
-                    </td>
-                    <td>
-                        @item.Product
-                    </td>
-                    <td>
-                        @item.AccountNameT
-                    </td>
-                    <td>
-                        @item.AccountNameE
-                    </td>
-                    <td>
-                        @item.Trader
-                    </td>
-                    <td class="text-center">
-                        <a onclick="onClientSelected(@(item.ClientId ?? -1), '@item.AccountNo', '@item.Product')" href="javascript:void(0);" 
-                                class="account-no-link">@item.PidNo</a>                        
-                    </td>
-                </tr>                     
+            <tr>
+                <td class="text-center">
+                    <a onclick="onClientSelected(@(item.ClientId ?? -1), '@item.AccountNo', '@item.Product')" href="javascript:void(0);" class="account-no-link">@item.AccountNo</a>
+                </td>
+                <td class="text-center">
+                    @item.Product
+                </td>
+                <td>
+                    @item.AccountNameT
+                </td>
+                <td>
+                    @item.AccountNameE
+                </td>
+                <td>
+                    @item.Trader
+                </td>
+                <td class="text-center">
+                    <a onclick="onClientSelected(@(item.ClientId ?? -1), '@item.AccountNo', '@item.Product')" href="javascript:void(0);"
+                       class="account-no-link">@item.PidNo</a>
+                </td>
+                <td class="text-center">
+                    @item.ClientTier
+                </td>
+            </tr>                     
                 }
             }
             else
             {
                 <tr style="height: 40px;">
-                    <td colspan="6" class="text-center">
+                    <td colspan="7" class="text-center">
                         There is no data found.
                     </td>
                 </tr>

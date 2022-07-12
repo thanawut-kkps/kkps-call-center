@@ -32,6 +32,7 @@ namespace Phatra.CallCenter.Data
         public Nullable<System.DateTime> OpenDate { get; set; }
 
         #endregion
+
     }
     
 }

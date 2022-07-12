@@ -63,10 +63,16 @@ namespace Phatra.CallCenter.Data
             [Display(Name = "Pid No")]
             [StringLength(20, ErrorMessage = "Pid No must be under 20 characters.")]
             public string PidNo { get; set; }
+            
+            [Display(Name = "Client Tier")]
+            [StringLength(50, ErrorMessage = "Client Tier must be under 50 characters.")]
+            public string ClientTier { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

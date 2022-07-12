@@ -57,8 +57,10 @@ namespace Phatra.CallCenter.Data
             public string IsPoaQuestion { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

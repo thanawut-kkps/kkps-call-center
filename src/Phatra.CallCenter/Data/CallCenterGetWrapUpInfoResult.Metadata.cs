@@ -71,8 +71,10 @@ namespace Phatra.CallCenter.Data
             public Nullable<decimal> PoaId { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

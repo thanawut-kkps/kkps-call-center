@@ -25,6 +25,7 @@ namespace Phatra.CallCenter.Data
         public Nullable<int> SuitLevel { get; set; }
 
         #endregion
+
     }
     
 }

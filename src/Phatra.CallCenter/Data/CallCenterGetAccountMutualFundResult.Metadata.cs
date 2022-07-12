@@ -57,8 +57,10 @@ namespace Phatra.CallCenter.Data
             public string HolderNameE { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

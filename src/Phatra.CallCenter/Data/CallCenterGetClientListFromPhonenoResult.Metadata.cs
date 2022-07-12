@@ -96,8 +96,10 @@ namespace Phatra.CallCenter.Data
             public string ContactMobile { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

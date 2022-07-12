@@ -41,8 +41,10 @@ namespace Phatra.CallCenter.Data
             public string LoginStatus { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

@@ -40,8 +40,10 @@ namespace Phatra.CallCenter.Data
             public string ReasonDesc { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

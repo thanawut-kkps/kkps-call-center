@@ -36,6 +36,7 @@ namespace Phatra.CallCenter.Data
         public string Relationship { get; set; }
 
         #endregion
+
     }
     
 }

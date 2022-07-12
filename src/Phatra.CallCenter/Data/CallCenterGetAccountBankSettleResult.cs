@@ -40,6 +40,7 @@ namespace Phatra.CallCenter.Data
         public string ATSSellAccountTypeDesc { get; set; }
 
         #endregion
+
     }
     
 }

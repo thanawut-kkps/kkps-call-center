@@ -21,6 +21,7 @@ namespace Phatra.CallCenter.Data
         public string ConsentStatus { get; set; }
 
         #endregion
+
     }
     
 }

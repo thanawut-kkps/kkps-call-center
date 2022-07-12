@@ -57,8 +57,10 @@ namespace Phatra.CallCenter.Data
             public Nullable<int> MinPassPoaQuest { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

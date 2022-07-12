@@ -72,8 +72,10 @@ namespace Phatra.CallCenter.Data
             public string UpdatedUser { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

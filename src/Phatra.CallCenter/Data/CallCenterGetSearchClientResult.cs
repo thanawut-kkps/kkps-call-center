@@ -24,8 +24,10 @@ namespace Phatra.CallCenter.Data
         public string AccountNameE { get; set; }
         public string Trader { get; set; }
         public string PidNo { get; set; }
+        public string ClientTier { get; set; }
 
         #endregion
+
     }
     
 }

@@ -22,6 +22,7 @@ namespace Phatra.CallCenter.Data
         public string DvdBranchName { get; set; }
 
         #endregion
+
     }
     
 }

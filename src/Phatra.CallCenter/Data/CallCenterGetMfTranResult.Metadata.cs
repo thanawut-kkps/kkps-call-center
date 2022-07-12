@@ -70,8 +70,10 @@ namespace Phatra.CallCenter.Data
             public string TranStatusDesc { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

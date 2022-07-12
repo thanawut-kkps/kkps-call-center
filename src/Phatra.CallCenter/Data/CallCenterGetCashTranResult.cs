@@ -22,6 +22,7 @@ namespace Phatra.CallCenter.Data
         public Nullable<decimal> Amt { get; set; }
 
         #endregion
+
     }
     
 }

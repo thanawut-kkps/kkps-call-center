@@ -24,6 +24,7 @@ namespace Phatra.CallCenter.Data
         public string Fax { get; set; }
 
         #endregion
+
     }
     
 }

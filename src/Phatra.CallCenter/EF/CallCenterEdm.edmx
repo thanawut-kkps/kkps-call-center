@@ -4,8 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CallCenterModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="CallCenterModelStoreContainer" />
+    <Schema Namespace="CallCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <Function Name="usp_cc_get_account_banksettle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="account" Type="varchar" Mode="In" />
         </Function>
@@ -94,6 +93,7 @@
         </Function>
         <Function Name="usp_ref_get_purpose_verifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_ref_get_todo_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CallCenterModelStoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -137,9 +137,6 @@
           <FunctionImport Name="usp_cc_get_question_verification" ReturnType="Collection(CallCenterModel.CallCenterGetQuestionVerificationResult)" >
           <Parameter Name="purpose_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_cc_get_search_client" ReturnType="Collection(CallCenterModel.CallCenterGetSearchClientResult)">
-          <Parameter Name="search_text" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="usp_cc_get_login" ReturnType="Collection(CallCenterModel.CallCenterGetLoginResult)">
           <Parameter Name="selectacc" Mode="In" Type="String" />
           </FunctionImport>
@@ -171,6 +168,9 @@
           <FunctionImport Name="usp_cc_get_history_wrapup" ReturnType="Collection(CallCenterModel.CallCenterGetHistoryWrapUpInfoResult)">
             <Parameter Name="client_id" Mode="In" Type="Decimal" />
             <Parameter Name="call_session" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_search_client" ReturnType="Collection(CallCenterModel.CallCenterGetSearchClientResult)">
+            <Parameter Name="search_text" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CallCenterGetProfileResult">
@@ -317,6 +317,7 @@
           <Property Type="String" Name="account_name_e" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="trader" Nullable="true" MaxLength="452" />
           <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="client_tier" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="CallCenterGetLoginResult">
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="256" />
@@ -686,21 +687,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_cc_get_search_client" FunctionName="CallCenterModel.Store.usp_cc_get_search_client">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetSearchClientResult">
-                <ScalarProperty Name="client_id" ColumnName="client_id" />
-                <ScalarProperty Name="account_no" ColumnName="account_no" />
-                <ScalarProperty Name="product" ColumnName="product" />
-                <ScalarProperty Name="system_code" ColumnName="system_code" />
-                <ScalarProperty Name="Joint_Account" ColumnName="Joint_Account" />
-                <ScalarProperty Name="account_name_t" ColumnName="account_name_t" />
-                <ScalarProperty Name="account_name_e" ColumnName="account_name_e" />
-                <ScalarProperty Name="trader" ColumnName="trader" />
-                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_cc_get_login" FunctionName="CallCenterModel.Store.usp_cc_get_login">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetLoginResult">
@@ -887,6 +873,22 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_search_client" FunctionName="CallCenterModel.Store.usp_cc_get_search_client">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetSearchClientResult">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+                <ScalarProperty Name="Joint_Account" ColumnName="Joint_Account" />
+                <ScalarProperty Name="account_name_t" ColumnName="account_name_t" />
+                <ScalarProperty Name="account_name_e" ColumnName="account_name_e" />
+                <ScalarProperty Name="trader" ColumnName="trader" />
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+                <ScalarProperty Name="client_tier" ColumnName="client_tier" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -903,6 +905,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

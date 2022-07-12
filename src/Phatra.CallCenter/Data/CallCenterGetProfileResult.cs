@@ -43,6 +43,7 @@ namespace Phatra.CallCenter.Data
         public string AgreementType { get; set; }
 
         #endregion
+
     }
     
 }

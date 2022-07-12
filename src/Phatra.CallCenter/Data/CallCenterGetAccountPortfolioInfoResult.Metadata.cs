@@ -137,8 +137,10 @@ namespace Phatra.CallCenter.Data
             public Nullable<int> NoDec { get; set; }
 
             #endregion
+
     	}
 
         #endregion
+
     }
 }

@@ -24,6 +24,7 @@ namespace Phatra.CallCenter.Data
         public Nullable<decimal> ClientPay { get; set; }
 
         #endregion
+
     }
     
 }

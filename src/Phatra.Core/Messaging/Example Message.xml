@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<messages>
+  <messageGroup name="Phatra.ESS.Web.CompanyPdf.Forms.Load">
+    <page name="ImportCompanyPdf">
+      <information>
+        <message id="I001">{0} มีจำนวน file ที่จะ import {1} file</message>
+        <message id="I002">'{0}' ที่เลือกไม่มี file ที่จะ import</message>
+        <message id="I003">นำเข้าข้อมูลเสร็จสิ้นแล้ว</message>
+      </information>
+      <warning>
+        <message id="W001"></message>
+      </warning>
+      <error>
+        <message id="E001"></message>
+      </error>
+    </page>
+  </messageGroup>
+
+  <messageGroup name="Phatra.ESS.Web.CompanyPdf.Forms.Views">
+    <page name="CompanyPdfGridView">
+      <information>
+        <message id="I001">ทำการ Approve Status เสร็จสิ้น</message>
+      </information>
+      <warning>
+        <message id="W001"></message>
+      </warning>
+      <error>
+        <message id="E001"></message>
+      </error>
+    </page>
+  </messageGroup>
+</messages>

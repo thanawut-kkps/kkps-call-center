@@ -1,0 +1,13 @@
+﻿@model decimal?
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpReminderContainer";
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "IndexCallbackPanelReminderListPartial" };
+    settings.ClientSideEvents.BeginCallback = settings.Name + "_BeginCallback";
+    settings.ClientSideEvents.EndCallback = settings.Name + "_EndCallback";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("IndexReminderListPartial", new { _clientId = Model });    
+    });
+}).GetHtml()

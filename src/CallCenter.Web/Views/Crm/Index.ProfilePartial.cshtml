@@ -1,0 +1,90 @@
+﻿@model Phatra.CallCenter.Data.CallCenterGetProfileResult
+@{
+    string col1 = "2";
+    string col2 = "4";
+    string col3 = "2";
+    string col4 = "4";
+}
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Client Name (Thai)</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-clientnamet">
+        @Model.ClientNameT
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>PID/Passport</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-pid">        
+        @Html.Raw(@Model.PidNo.Replace("<NP>", "<span style='color:red'>No Potential</span>"))
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Client Name (Eng)</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-clientnamee">
+        @Model.ClientNameE
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>Birth Date</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-birthdate">
+        @(Model.BirthDate.HasValue ? Model.BirthDate.Value.ToString("d MMMM yyyy") : "N/A") @(Model.BirthDate.HasValue ? "(" + (Model.BirthDate.Value.Year + 543).ToString() + ")" : "")
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Nationality</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-nationdesc">
+        @Model.NationDesc
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>FATCA Status</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-fatcatypedesc">
+        @Model.FATCATypeDesc
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>PID Expire Date</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-cardexpiredate">
+        @(Model.CardExpireDate.HasValue ? Model.CardExpireDate.Value.ToString("d MMMM yyyy") : string.Empty) @(Model.CardExpireDate.HasValue ? "(" + (Model.CardExpireDate.Value.Year + 543).ToString() + ")" : "") @Model.CardExpireInfo
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>PID expire in</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-cardexpirewithin">
+        @(string.IsNullOrWhiteSpace(Model.CardExpireWithin) ? "N/A" : Model.CardExpireWithin)
+        Days
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Master POA</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-masterpoa">
+        @Model.MasterPoa
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>SSU</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-ssuflag">
+        @Model.SSUFlag
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+    </div>
+    <div class="col-md-@col2 nopadding">
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>Agreement Version</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-agreementtype">
+        @Model.AgreementType
+    </div>
+</div>

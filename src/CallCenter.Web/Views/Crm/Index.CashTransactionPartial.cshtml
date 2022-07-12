@@ -1,0 +1,49 @@
+﻿@model List<CallCenterGetCashTranResult>
+<div class="space-above">
+    <table class="table table-striped @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="text-center verify-cash-transaction can-hide-label">
+                    Transaction Date
+                </th>
+                <th class="text-center verify-cash-transaction can-hide-label">
+                    Type
+                </th>
+                <th class="text-center verify-cash-transaction can-hide-label">
+                    Activities
+                </th>
+                <th class="text-right verify-cash-transaction can-hide-label">
+                    Amount
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+            <tr>
+                <td class="text-center verify-cash-transaction can-hide-value">
+                    @(item.Tradedate.HasValue ? item.Tradedate.Value.ToString("d-MMM-yyyy") : string.Empty)
+                </td>
+                <td class="text-center verify-cash-transaction can-hide-value">
+                    @item.Sharecodes
+                </td>
+                <td class="text-center verify-cash-transaction can-hide-value">
+                    @item.Trandesc
+                </td>
+                <td class="text-right verify-cash-transaction can-hide-value">
+                    @(item.Amt.HasValue ? item.Amt.Value.ToString("#,0.00") : string.Empty)
+                </td>
+            </tr> 
+            }
+        }
+        else
+        { 
+             <tr class="row-no-data verify-cash-transaction can-hide-value">
+                <td colspan="4" class="text-center">No data.</td>
+             </tr>            
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,79 @@
+﻿@model List<CallCenterGetReminderResult>
+@functions{    
+
+    private bool IsCancelled(CallCenterGetReminderResult item)
+    {
+        return item.IsCancelled.HasValue && item.IsCancelled.Value;
+    }
+
+    private bool IsReminded(CallCenterGetReminderResult item)
+    {
+        return item.RemindDate.HasValue && item.RemindDate.Value < DateTime.Now.Date;
+    }
+
+}
+<div>
+    <div class="row nomargin">
+        <a href="javascript:void(0);" onclick="popupReminderDialog(null, false)"><i class="fa fa-plus-circle">
+        </i>&nbsp;&nbsp;Add New Reminder</a>
+    </div>
+    <table class="table table-striped space-above @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="col-md-6">
+                    Details
+                </th>
+                <th class="col-md-2 text-center">
+                    Record Date
+                </th>
+                <th class="col-md-2 text-center">
+                    Remind Date
+                </th>
+                <th class="col-md-2 text-center" data-defaultsort='disabled'>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr @((IsCancelled(item) || IsReminded(item)) ? "class=deleted" : "")>
+                    <td>
+                        @item.Details
+                    </td>
+                    <td class="text-center" data-dateformat="D-MMMM-YYYY">
+                        @(item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("d-MMM-yyyy") : string.Empty)
+                    </td>
+                    <td class="text-center" data-dateformat="D-MMMM-YYYY">
+                        @(item.RemindDate.HasValue ? item.RemindDate.Value.ToString("d-MMM-yyyy") : string.Empty)
+                    </td>
+                    <td class="text-center">
+                        @if (IsCancelled(item) || IsReminded(item))
+                        {
+                        <a href="javascript:void(0);" class="btn" role="button" title="@(IsCancelled(item) ? "View Cancelled Reminder" : "View Already Reminded")" onclick="popupReminderDialog(@item.ReminderId, true)">
+                            <i class="fa fa-search"></i></a>                                 
+                        }
+                        else 
+                        {
+                        <a href="javascript:void(0);" class="btn" role="button" title="Edit Reminder" onclick="popupReminderDialog(@item.ReminderId, false)">
+                            <i class="fa fa-pencil-square-o"></i></a>                                   
+                        }
+                            <a href="javascript:void(0);" title="Cancel" class="btn@(IsCancelled(item) || IsReminded(item) ? " disabled" : "")" role="button" @(!IsCancelled(item) && !IsReminded(item) ?  "onclick=cancelReminder(" + @item.ReminderId + ")" : string.Empty) >
+                                <i class="fa fa-times"></i></a>   
+
+                    </td>
+                </tr> 
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center row-no-data">
+                        There is no data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

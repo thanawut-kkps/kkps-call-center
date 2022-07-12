@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ECC8CDFF-7968-48D2-8B59-5CB7751EFB08}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Phatra.Core</RootNamespace>
+    <AssemblyName>Phatra.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PTSECMSWEBU2|AnyCPU'">
+    <OutputPath>bin\PTSECMSWEBU2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PTSECMSWEB11|AnyCPU'">
+    <OutputPath>bin\PTSECMSWEB11\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationBlocks.Data.2.0.0\lib\net40\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Caching\CacheExtensions.cs" />
+    <Compile Include="Caching\ICacheManager.cs" />
+    <Compile Include="Caching\MemoryCacheManager.cs" />
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
+    <Compile Include="ComponentModel\WriteLockDisposable.cs" />
+    <Compile Include="Configuration\IEngineConfig.cs" />
+    <Compile Include="Configuration\EngineConfig.cs" />
+    <Compile Include="Converter\ConcatenationOptions.cs" />
+    <Compile Include="Converter\ConversionOptions.cs" />
+    <Compile Include="Converter\GenericStringConcatenator.cs" />
+    <Compile Include="Converter\GenericStringSplitter.cs" />
+    <Compile Include="Converter\InvalidConversionException.cs" />
+    <Compile Include="Converter\IStringConcatenator.cs" />
+    <Compile Include="Converter\IStringSplitter.cs" />
+    <Compile Include="Converter\ObjectExtension.cs" />
+    <Compile Include="Converter\UniversalTypeConverter.Core.cs">
+      <DependentUpon>UniversalTypeConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\UniversalTypeConverter.Core.SpecialValues.cs">
+      <DependentUpon>UniversalTypeConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\UniversalTypeConverter.cs" />
+    <Compile Include="Converter\UniversalTypeConverter.Enumerable.cs">
+      <DependentUpon>UniversalTypeConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\UniversalTypeConverter.EnumerableConversion.cs">
+      <DependentUpon>UniversalTypeConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\UniversalTypeConverter.EnumerableStringConversion.cs">
+      <DependentUpon>UniversalTypeConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\UniversalTypeConverter.Helpers.cs">
+      <DependentUpon>UniversalTypeConverter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\DynamicDataObjectWrapper.cs" />
+    <Compile Include="DataAccess\DynamicDataReader.cs" />
+    <Compile Include="DataAccess\DynamicEnumerableDataObjectWrapper.cs" />
+    <Compile Include="DataAccess\IBaseDataAccess.cs" />
+    <Compile Include="Exceptions\BaseBusinessException.cs" />
+    <Compile Include="Exceptions\BaseMessageException.cs" />
+    <Compile Include="Exceptions\ExampleException.cs" />
+    <Compile Include="Exceptions\SqlServerBusinessException.cs" />
+    <Compile Include="Extension.cs" />
+    <Compile Include="Extensions\Collection.Extension.cs" />
+    <Compile Include="Extensions\Datetime.Extension.cs" />
+    <Compile Include="Extensions\DynamicQueryable.cs" />
+    <Compile Include="Infrastructure\AppDomainTypeFinder.cs" />
+    <Compile Include="Infrastructure\BaseEngine.cs" />
+    <Compile Include="Infrastructure\DependencyManagement\ContainerManager.cs" />
+    <Compile Include="Infrastructure\DependencyManagement\IContainerManager.cs" />
+    <Compile Include="Infrastructure\DependencyManagement\IDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\IEngine.cs" />
+    <Compile Include="Infrastructure\IStartupTask.cs" />
+    <Compile Include="Infrastructure\ITypeFinder.cs" />
+    <Compile Include="Infrastructure\Singleton.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\Log4NetLogger.cs" />
+    <Compile Include="Logging\LoggingModule.cs" />
+    <Compile Include="Managers\BaseManager.cs" />
+    <Compile Include="Managers\IfisManager.cs" />
+    <Compile Include="Managers\WebCtrlManager.cs" />
+    <Compile Include="Messaging\BaseMessage.cs" />
+    <Compile Include="Messaging\Example Message.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\BulkCopy.cs" />
+    <Compile Include="Utilities\ConfigurationHelper.cs" />
+    <Compile Include="Utilities\CsvFileReader.cs" />
+    <Compile Include="Utilities\CsvFileWriter.cs" />
+    <Compile Include="Utilities\CsvRow.cs" />
+    <Compile Include="Utilities\DbConvertor.cs" />
+    <Compile Include="Utilities\EnumUtility.cs" />
+    <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Utilities\SqlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Exceptions\Example Business Exception.xml" />
+    <Content Include="Messaging\Example Message.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

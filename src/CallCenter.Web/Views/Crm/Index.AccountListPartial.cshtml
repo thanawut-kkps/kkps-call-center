@@ -1,0 +1,78 @@
+﻿@model List<CallCenterGetAccountListResult>
+<div style="margin-top: 10px;">
+    <!--[if lte IE 9]>
+<div class="old_ie_wrapper">
+<!--<![endif]-->
+    <table class="table table-striped fixed_headers row-selectable @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="col-md-2 text-center verify-equity-account verify-tfex-account">
+                    Account No
+                </th>
+                <th class="col-md-2 text-center">
+                    Product
+                </th>
+                <th class="col-md-2 text-center">
+                    Status
+                </th>
+                <th class="col-md-2 text-center">
+                    Suitability Level
+                </th>
+                <th class="col-md-4 text-center">
+                    Full Name
+                </th>
+            </tr>
+        </thead>
+        <tbody style="max-height: @(Model.Count > 0 ? "150" : "30")px;">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="col-md-2 text-center@(item.Product == "Equity Cash" || item.Product == "Single A/C" ? " verify-equity-account" : (item.Product == "Futures" ? " verify-tfex-account" : ""))">
+                        <a href="javascript:void(0);" class="account-no-link" data-product="@item.Product">@item.AccountNo</a>
+                    </td>
+                    <td class="col-md-2 text-center verify-account-product">
+                        @item.Product
+                    </td>
+                    <td class="col-md-2 text-center">
+                        @item.AccStatus
+                    </td>
+                    <td class="col-md-2 text-center">
+                        @item.SuitLevel
+                    </td>
+                    <td class="col-md-4 text-center">
+                        @item.AccountNameT
+                    </td>
+                </tr> 
+                }
+            }
+            else
+            {
+                <tr class="row-no-data">
+                    <td class="col-md-2 text-center">
+                    </td>
+                    <td class="col-md-2 text-center">
+                    </td>
+                    <td class="col-md-2 text-center">
+                        There is no data.
+                    </td>
+                    <td class="col-md-3 text-center">
+                    </td>
+                    <td class="col-md-3 text-center">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row-detail">
+        <strong>NOTE: (1) Conservative (2) Medium-to-moderate low risk (3) Medium-to-moderate
+            high risk (4) High Risk (5) Aggressive</strong>
+    </div>
+    <!--[if lte IE 9]>
+</div>
+<!--<![endif]-->
+</div>
+<div class="verify-numberofaccount">
+    <strong>Number of Account</strong> @Model.Count Account(s)
+</div>

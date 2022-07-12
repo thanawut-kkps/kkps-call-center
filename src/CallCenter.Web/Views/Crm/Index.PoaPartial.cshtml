@@ -1,0 +1,173 @@
+﻿@model List<CallCenterGetPoaResult>
+@functions
+{
+    private IHtmlString FlagToHtml(string str)
+    {
+        if (str.ToUpper() == "Y")
+        {
+            return Html.Raw(@"<span style='color:green;'>" + str + @"</span>");
+        }
+        else if (str.ToUpper() == "N")
+        {
+            return Html.Raw(@"<span style='color:red;'>" + str + @"</span>");
+        }
+        return Html.Raw(str);
+    }
+
+    private IHtmlString DocumentCompletedToHtml(string str)
+    {
+        if (str.ToUpper() == "Y")
+        {
+            return Html.Raw(@"<i class='fa fa-check-square-o'></i>");
+        }
+        else if (str.ToUpper() == "N")
+        {
+            return Html.Raw(@"<i class='fa fa-square-o'></i>");
+        }
+        return Html.Raw(str);
+    }
+}
+<div class="space-above">
+    <table class="table table-bordered verify-poa-relationship">
+        <thead>
+            <tr>
+                <th class="text-center" style="width: 3%;">
+                </th>
+                <th class="text-center" style="width: 15%;">
+                    POA Name
+                </th>
+                <th class="text-center" style="width: 10%;">
+                    PID
+                </th>
+                <th class="text-center" style="width: 10%;">
+                    Contact No.
+                </th>
+                <th class="text-center" style="width: 7%;">
+                    Product
+                </th>
+                <th class="text-center" style="width: 10%;">
+                    A/C Type
+                </th>
+                <th class="text-center" style="width: 10%;">
+                    A/C No.
+                </th>
+                <th class="text-center">
+                    (1)
+                </th>
+                <th class="text-center">
+                    (2)
+                </th>
+                <th class="text-center">
+                    (3)
+                </th>
+                <th class="text-center">
+                    (4)
+                </th>
+                <th class="text-center">
+                    (5)
+                </th>
+                <th class="text-center">
+                    (6)
+                </th>
+                <th class="text-center">
+                    (7)
+                </th>
+                <th class="text-center">
+                    Other
+                </th>
+                <th class="text-center">
+                    <span title="Document Completed">Doc Compl</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                decimal previousPOAId = -1;
+                var duplicatedPOAIdCount = 1;
+                foreach (var item in Model)
+                {
+                <tr>
+                    @if (previousPOAId != item.PoaId)
+                    {
+                        previousPOAId = item.PoaId;
+                        duplicatedPOAIdCount = Model.Where(c => c.PoaId == item.PoaId).Count();           
+                        <td rowspan="@duplicatedPOAIdCount" class="text-center">
+                            <input type="checkbox" name="PoaId" data-groupid="PoaId" data-poaname="@item.POANameT" class="radio-checkbox" value="@item.PoaId"  />
+                        </td>                                 
+                        <td rowspan="@duplicatedPOAIdCount">
+                            @item.POANameT @(!string.IsNullOrWhiteSpace(item.POANameE) ? Html.Raw(string.Format("<br>({0})", item.POANameE)) : Html.Raw(""))
+                        </td>
+                        <td class="text-center" rowspan="@duplicatedPOAIdCount">
+                            <span class="verify-poa-id">@item.POAPid</span>
+                            <br>
+                            <span class='verify-poa-relationship'>(@(!string.IsNullOrWhiteSpace(item.Relationship) ? item.Relationship : "N/A"))</span>
+                        </td>
+                        <td class="text-center verify-poa-tellno" rowspan="@duplicatedPOAIdCount">
+                            @item.POATelNo
+                        </td>
+                    }
+                    <td class="text-center" style="background-color: #f2f2f2;">
+                        @item.ProductCode
+                    </td>
+                    <td class="text-center">
+                        @item.AccountType
+                    </td>
+                    <td class="text-center">
+                        @item.AccountNO
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag1)
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag2)
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag3)
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag4)
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag5)
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag6)
+                    </td>
+                    <td class="text-center">
+                        @FlagToHtml(item.Flag7)
+                    </td>
+                    <td class="text-center">
+                        @item.FlagOther
+                    </td>
+                    <td class="text-center">
+                        @DocumentCompletedToHtml(item.DocCompleted)
+                    </td>
+                </tr>                   
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="16" class="text-center row-no-data verify-poa-id verify-poa-relationship verify-poa-tellno">
+                        There is no data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <div style="float: left; padding-right: 10px;">
+            <b>Note: </b>
+        </div>
+        <div style="float: left">
+            <b>(1)</b> Purchases and Sales. <b>(2)</b> Transfer/Withdraw stock under client's
+            name only. <b>(3)</b> Transfer/Withdraw stock under 3rd party name.<br />
+            <b>(4)</b> Cash collateral withdrawal under client's name only. <b>(5)</b> Instruct
+            SBL deal(B, L BR, LR). <b>(6)</b> Accept and/or make all payments.<br />
+            <b>(7)</b> Execute and sign documents.
+        </div>
+    </div>
+    <div style="clear: both;">
+    </div>
+</div>

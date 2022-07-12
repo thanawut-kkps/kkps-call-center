@@ -1,0 +1,268 @@
+﻿@model IPagedList<AccountPortfolioInfoViewModel>
+@{
+    ViewBag.Title = "Account Portfolio";
+    String lastClassDesc = "header";
+}
+<div id="gridaccountportfolioresult-container">
+    <table class="table table-striped">
+        <thead>        
+            <tr class="standout">
+                <th rowspan="2" class="col-md-1 text-center" style="vertical-align: middle">Security</th>
+                <th rowspan="2" class="col-md-1 text-center" style="vertical-align: middle">Quantity</th>
+                <th colspan="2" class="col-md-2 text-center">Investment Cost</th>
+                <th colspan="2" class="col-md-2 text-center">Market Value</th>
+                <th colspan="2" class="col-md-2 text-center">Unrealized Gain/Loss</th>
+                <th rowspan="2" class="col-md-1 text-center" style="vertical-align: middle">% Weight</th>
+            </tr>
+            <tr class="standout">
+                <th class="col-md-1 text-center">Unit Cost</th>
+                <th class="col-md-1 text-center">Total Cost</th>
+                <th class="col-md-1 text-center">Unit Value</th>
+                <th class="col-md-1 text-center">Total Value</th>
+                <th class="col-md-1 text-center">Total</th>
+                <th class="col-md-1 text-center">%</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                string header = "";
+                string lastSubHeader = "";
+
+                decimal? _totalCost = 0;
+                decimal? _totalValue = 0;                
+                decimal? _totalWeight = 0;
+                decimal? _totalUGL = 0;
+                decimal? _totalUGLpercent = 0;
+                int rowNumber = 0;
+
+                foreach (var item in Model)
+                {                    
+                    header = (item.AssetLib == "A" ? "Asset" : "Liability") + " - " + item.Classdesc;                    
+
+                    if (header != lastClassDesc)
+                    {
+                        _totalCost = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalCost).FirstOrDefault();
+                        _totalValue = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalValue).FirstOrDefault();
+                        _totalWeight = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalWeight).FirstOrDefault();
+                        _totalUGL = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalUnrealizedGainLoss).FirstOrDefault();
+                        
+                        if (_totalCost > 0)
+                        {
+                            _totalUGLpercent = _totalUGL / _totalCost * 100;
+                        }
+                        else
+                        {
+                            _totalUGLpercent = 0;
+                        }
+
+                        if (rowNumber > 0)
+                        {
+                            <tr>
+                                <td class="text-right" style="font-weight: bold;">Total</td>
+                                <td class="text-right"></td>
+                                <td class="text-right"></td>
+                                <td class="text-right">
+                                    @_totalCost.Value.ToString("#,0.00")                                    
+                                </td>
+                                <td class="text-right"></td>
+                                <td class="text-right">
+                                    @_totalValue.Value.ToString("#,0.00")                                    
+                                </td>
+                                <td class="text-right">                                    
+                                    @_totalUGL.Value.ToString("#,0.00")                                    
+                                </td>
+                                <td class="text-right">                                     
+                                    @_totalUGLpercent.Value.ToString("#,0.00")%
+                                </td>
+                                <td class="text-right">
+                                    @_totalWeight.Value.ToString("#,0.00")%
+                                </td>                    
+                            </tr>                            
+                        }
+
+                        <tr style="background-color: rgb(176, 196, 222)">
+                            <td class="text-left" colspan="9">
+                                @header
+                            </td>                                          
+                        </tr>   
+                
+                        lastClassDesc = header;
+                        lastSubHeader = item.Classdesc;
+
+                        rowNumber = 0;
+                    }
+
+                    rowNumber++;
+
+                    <tr>
+                        <td class="text-left">
+                            @item.ShareCodes
+                        </td>
+                        <td class="text-right">
+                            @(item.CUnitBal == null ? "-" : (item.CUnitBal.HasValue ? item.CUnitBal.Value.ToString("#,0") : "0"))                                  
+                        </td>
+                        <td class="text-right">
+                            @(item.Cavgcost == null ? "-" : (item.Cavgcost.HasValue ? item.Cavgcost.Value.ToString("#,0.0000") : "0.0000"))                        
+                        </td>
+                        <td class="text-right">
+                            @(item.Ctotcost == null ? "-" : (item.Ctotcost.HasValue ? item.Ctotcost.Value.ToString("#,0.00") : "0.00"))                                                                            
+                        </td>
+                        <td class="text-right">
+                            @(item.Mktprice == null ? "-" : (item.Mktprice.HasValue ? item.Mktprice.Value.ToString("#,0.0000") : "0.0000"))                                                
+                        </td>
+                        <td class="text-right">
+                            @(item.Mktvalue == null ? "-" : (item.Mktvalue.HasValue ? item.Mktvalue.Value.ToString("#,0.00") : "0.00"))                                                                            
+                        </td>
+                        <td class="text-right">
+                            @(item.Ugl == null ? "-" : (item.Ugl.HasValue ? item.Ugl.Value.ToString("#,0.00") : "0.00"))                                                
+                        </td>
+                        <td class="text-right">
+                            @{
+                              if (item.UglPct == null)
+                              {
+                                    <span>-</span>
+                              }
+                              else if (item.UglPct.HasValue)
+                              {                                  
+                                  if (item.UglPct.Value > 0)
+                                  {
+                                        <span style="color: green">&#9650 @item.UglPct.Value.ToString("#,0.00")</span>                                        
+                                  }
+                                  else if (item.UglPct.Value < 0)
+                                  {
+                                        <span style="color: red">&#9660 @item.UglPct.Value.ToString("#,0.00")</span>                                    
+                                  }
+                                  else
+                                  {
+                                        <span>0.00</span>
+                                  }
+                              }
+                              else
+                              {
+                                    <span>0.00</span>
+                              }                          
+                            }               
+
+                        </td>
+                        <td class="text-right">
+                            @(item.WeightPct == null ? "-" : (item.WeightPct.HasValue ? item.WeightPct.Value.ToString("#,0.00") + "%" : "0.00%"))                                                                            
+                        </td>                    
+                    </tr>
+                }
+
+                if (rowNumber > 0)
+                {
+
+                    decimal? _allTotalCost = 0;                    
+                    decimal? _allTotalValue = 0;
+                    decimal? _allTotalWeight = 0;
+                    decimal? _allTotalUGL = 0;
+                    decimal? _allTotalUGLpercent = 0;
+                    
+                    _totalCost = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalCost).FirstOrDefault();
+                    _totalValue = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalValue).FirstOrDefault();
+                    _totalWeight = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalWeight).FirstOrDefault();
+                    _totalUGL = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalUnrealizedGainLoss).FirstOrDefault();
+
+                    if (_totalCost > 0)
+                    {
+                        _totalUGLpercent = _totalUGL / _totalCost * 100;
+                    }
+                    else
+                    {
+                        _totalUGLpercent = 0;
+                    }
+
+                    _allTotalCost = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalPortfolioCost).FirstOrDefault();
+                    _allTotalValue = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalPortfolioValue).FirstOrDefault();
+                    _allTotalWeight = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalPortfolioWeight).FirstOrDefault();
+                    _allTotalUGL = (from txn in Model where txn.Classdesc == lastSubHeader select txn.TotalPortfolioUnrealizedGainLoss).FirstOrDefault();
+
+                    if (_allTotalCost > 0)
+                    {
+                        _allTotalUGLpercent = _allTotalUGL / _allTotalCost * 100;
+                    }
+                    else
+                    {
+                        _allTotalUGLpercent = 0;
+                    }
+                    
+                    <tr>
+                        <td class="text-right" style="font-weight: bold;">Total</td>
+                        <td class="text-right"></td>
+                        <td class="text-right"></td>
+                        <td class="text-right">
+                            @_totalCost.Value.ToString("#,0.00")                                    
+                        </td>
+                        <td class="text-right"></td>
+                        <td class="text-right">
+                            @_totalValue.Value.ToString("#,0.00")                                    
+                        </td>
+                        <td class="text-right">                                    
+                            @_totalUGL.Value.ToString("#,0.00")                                    
+                        </td>
+                        <td class="text-right">                                                      
+                            @_totalUGLpercent.Value.ToString("#,0.00")%
+                        </td>
+                        <td class="text-right">
+                            @_totalWeight.Value.ToString("#,0.00")%
+                        </td>                    
+                    </tr>
+                    <tr style="background-color: #337ab7;color: white">
+                        <td class="text-left" style="font-weight: bold;">Portfolio Total</td>
+                        <td class="text-right"></td>
+                        <td class="text-right"></td>
+                        <td class="text-right">
+                            @_allTotalCost.Value.ToString("#,0.00")                                    
+                        </td>
+                        <td class="text-right"></td>
+                        <td class="text-right">
+                            @_allTotalValue.Value.ToString("#,0.00")                                    
+                        </td>
+                        <td class="text-right">                                    
+                            @_allTotalUGL.Value.ToString("#,0.00")                                    
+                        </td>
+                        <td class="text-right">                                                            
+                            @_allTotalUGLpercent.Value.ToString("#,0.00")%
+                        </td>
+                        <td class="text-right">
+                            @_allTotalWeight.Value.ToString("#,0.00")%
+                        </td>                    
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="height: 40px;">
+                    <td colspan="9" class="text-center">
+                        There is no data found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pager">
+        @Html.Raw(Ajax.Pager(
+           new Options
+           {
+               PageSize = Model.PageSize,
+               TotalItemCount = Model.TotalItemCount,
+               CurrentPage = Model.PageNumber,
+               ItemTexts = new ItemTexts() { Next = "Next", Previous = "Previous", Page = "" },
+               ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+               TooltipTitles = new TooltipTitles() { Next = "Next page", Previous = "Previous page", Page = "Go to page {0}.", First = "Go To First Page", Last = "Go To Last Page" },
+               Size = Size.normal,
+               Alignment = Alignment.centered,
+               IsShowControls = true,
+               IsShowFirstLast = true
+           },
+           new AjaxOptions
+           {
+               UpdateTargetId = "gridaccountportfolioresult-container" //,
+               // OnBegin = "beginPaging",
+               // OnSuccess = "successPaging",
+               // OnFailure = "failurePaging"
+           }, new { controller = "Crm", action = "AccountPortfolioResultPartial", _accountNumber = ViewData["_accountNumber"], _clientID = ViewData["_clientID"] }))
+    </div>
+</div>

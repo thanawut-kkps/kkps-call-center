@@ -1,0 +1,65 @@
+﻿@model CallCenter.Web.ViewModels.ClientInfoViewModel
+@if (!string.IsNullOrWhiteSpace(Model.CallSession))
+{ 
+    <div class="panel-gadget" style="min-height: 200px">
+        <div class="panel-gadget-header">
+            <i class="fa fa-book"></i>&nbsp;&nbsp;Note
+        </div>
+        <div class="panel-gadget-header-right">
+            @if (Model.CallSession.StartsWith("init"))
+            {
+                <a href="javascript:void(0);" onclick="lnkMissedCall_Click()" title="Go to Missed Call Page">
+                    <i class="fa fa-list"></i>&nbsp;Missed Call List</a>
+            }
+        </div>
+        <div class="panel-gadget-detail" style="padding-left: 10px;">
+            <div class="row nomargin">
+                <div class="nopadding">
+                    <div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li role="presentation" class="active"><a href="#verification-list" aria-controls="verification-list"
+                                role="tab" data-toggle="tab">Verification</a></li>
+                            <li role="presentation"><a href="#reminder-list" aria-controls="reminder-list" role="tab"
+                                data-toggle="tab">Reminder</a></li>
+                            <li role="presentation"><a href="#wrapup-section" aria-controls="wrapup-section"
+                                role="tab" data-toggle="tab">Wrap Up</a></li>
+                            <li role="presentation"><a href="#history-wrapup-section" aria-controls="history-wrapup-section"
+                                role="tab" data-toggle="tab">History Wrap Up</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="verification-list">
+                            <br />
+                            @Html.Action("IndexVerificationPartial", new { _clientId = Model.ClientId })
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="reminder-list">
+                            <br />
+                            @Html.Action("IndexCallbackPanelReminderListPartial", new { _clientId = Model.ClientId })
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="wrapup-section">
+                            <br />
+                            @Html.Action("IndexWrapUpPartial", new
+                               {
+                                   _clientId = Model.ClientId,
+                                   _accountNo = Model.AccountNo,
+                                   _originalClientId = Model.OriginalClientId,
+                                   _agentId = Model.AgentId,
+                                   _callSession = Model.CallSession,
+                                   _callStartTime = Model.CallStartTime,
+                                   _customerPhone = Model.CustomerPhone,
+                                   _extension = Model.Extension,
+                                   _originalAccountNo = Model.OriginalAccountNo
+                               })
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="history-wrapup-section">
+                            <br />                            
+                            @Html.Action("IndexCallbackPanelHistoryWrapupPartial", new { _clientId = Model.ClientId })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+}

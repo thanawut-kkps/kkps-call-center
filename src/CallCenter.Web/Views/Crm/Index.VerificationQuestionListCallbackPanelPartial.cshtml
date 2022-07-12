@@ -1,0 +1,13 @@
+﻿@model int?
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpVerificationQuestionListContainer";
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "IndexVerificationQuestionListCallbackPanelPartial" };
+    settings.ClientSideEvents.BeginCallback = settings.Name + "_BeginCallback";
+    settings.ClientSideEvents.EndCallback = settings.Name + "_EndCallback";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("IndexVerificationQuestionListPartial", new { _purposeId = Model });
+    });
+}).GetHtml()

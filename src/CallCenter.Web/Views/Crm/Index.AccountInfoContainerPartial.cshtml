@@ -1,0 +1,14 @@
+﻿@model AccountInfoViewModel
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpAccountInfoContainer";
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "IndexAccountInfoContainerPartial" };
+    settings.ClientSideEvents.BeginCallback = "cbpAccountInfoContainer_BeginCallback";
+    settings.ClientSideEvents.EndCallback = "cbpAccountInfoContainer_EndCallback";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("Index.AccountInfoPartial", Model);    
+    });
+}).GetHtml()

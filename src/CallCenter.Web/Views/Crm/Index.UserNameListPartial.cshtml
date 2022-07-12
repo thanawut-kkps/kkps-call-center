@@ -1,0 +1,45 @@
+﻿@model List<CallCenterGetLoginResult>
+<div style="margin-top: 10px;">
+    <table class="table table-striped verify-usernamelist @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="col-md-4 text-center">
+                    Username
+                </th>
+                <th class="col-md-4 text-center">
+                    Pin Status
+                </th>
+                <th class="col-md-4 text-center">
+                    Password Status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="text-center">
+                        <a href="javascript:void(0);" onclick="popupDrilldownLoginDialog('@item.UserName')">@item.UserName</a>
+                    </td>
+                    <td class="text-center">
+                        @item.PinStatus
+                    </td>
+                    <td class="text-center">
+                        @item.LoginStatus
+                    </td>
+                </tr> 
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">
+                        There is no data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

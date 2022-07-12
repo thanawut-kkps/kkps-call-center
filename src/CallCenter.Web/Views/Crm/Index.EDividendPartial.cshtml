@@ -1,0 +1,52 @@
+﻿@model CallCenterGetEdividendResult
+<div class="space-above">
+    <div class="row nomargin sub-title space-above">
+        <div class="col-md-12 nopadding">
+            <i class="fa fa-cog"></i>&nbsp;E-Dividend
+        </div>
+    </div>
+    <table class="table table-striped @(!string.IsNullOrWhiteSpace(Model.AccountNo) ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="text-center can-hide-label">
+                    Bank
+                </th>
+                <th class="text-center can-hide-label">
+                    Bank Account No
+                </th>
+                <th class="text-center can-hide-label">
+                    Account Type
+                </th>
+                <th class="text-center can-hide-label">
+                    Branch
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (!string.IsNullOrWhiteSpace(Model.AccountNo))
+        {
+            var item = Model;
+            <tr>
+                <td class="text-center can-hide-value">
+                    @item.DvdBankShortname
+                </td>
+                <td class="text-center can-hide-value">
+                    @item.DvdBankAccountNo
+                </td>
+                <td class="text-center can-hide-value">
+                    @item.DbdBankAccountTypeDesc
+                </td>
+                <td class="text-center can-hide-value">
+                    @item.DvdBranchName
+                </td>                
+            </tr> 
+        }
+        else
+        {
+             <tr class="row-no-data">
+                <td colspan="5" class="text-center can-hide-value">No data.</td>
+             </tr>              
+        }   
+        </tbody>
+    </table>
+</div>

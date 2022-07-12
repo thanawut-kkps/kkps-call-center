@@ -1,0 +1,80 @@
+﻿@model List<CallCenterGetHistoryWrapUpInfoResult>
+<div class="space-above">      
+    <table class="table table-striped @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="col-md-1 text-center">
+                    Date
+                </th>
+                <th class="col-md-1 text-center">
+                    Agent ID
+                </th>     
+                <th class="col-md-1 text-center">
+                    Phone No.
+                </th>     
+                <th class="col-md-1 text-center">
+                    Account No
+                </th>
+                <th class="col-md-2 text-center">
+                    Reason
+                </th>
+                <th class="col-md-5 text-center">
+                    Detail
+                </th>     
+                           
+            </tr>
+        </thead>        
+        <tbody style="max-height: @(Model.Count > 0 ? "132" : "50")px;">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="col-md-1" data-dateformat="D-MMMM-YYYY">
+                        @(item.WrapupDateTime.HasValue ? item.WrapupDateTime.Value.ToString("d-MMM-yyyy") : string.Empty)                        
+                    </td>
+                    <td class="col-md-1 text-center" >
+                        @item.AgentId
+                    </td>
+                    <td class="col-md-1 text-center" >
+                        @item.CustomerPhone
+                    </td>
+                    <td class="col-md-1 text-center" >
+                        @item.AccountNo
+                    </td>
+                    <td class="col-md-2 text-center">
+                        @item.ReasonDesc
+                    </td>
+                    <td class="col-md-5 text-left">
+                        @*@item.WrapupText*@
+                        @if (!string.IsNullOrWhiteSpace(item.WrapupText))
+                            {
+                                var idx = item.WrapupText.IndexOf(System.Environment.NewLine);
+                                string displayRemark = string.Empty;
+
+                                if (item.WrapupText.Length > 100)
+                                {
+                                    displayRemark = item.WrapupText.Substring(0, 70) + "...";
+                                }
+                                else
+                                {
+                                    displayRemark = item.WrapupText;
+                                }
+                                <div class="text-ellipsis"><a href="#" data-placement="bottom" data-html="true" data-toggle="tooltip" title='@Html.Raw((item.WrapupText ?? "").Replace(System.Environment.NewLine, "<br />"))'>@displayRemark</a>
+                                </div>
+                            }  
+                    </td>
+                </tr> 
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center row-no-data">
+                        There is no data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

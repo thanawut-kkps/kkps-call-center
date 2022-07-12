@@ -1,0 +1,45 @@
+﻿@model List<CallCenterGetAddrInfoResult>
+<div class="space-above">
+    <table class="table table-striped @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th data-defaultsort='disabled'>
+                </th>
+                <th>
+                    Tel (Home)
+                </th>
+                <th>
+                    Tel (Office)
+                </th>
+                <th>
+                    Tel (Mobile)
+                </th>
+                <th>
+                    Fax
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td >
+                        @item.AddrDesc
+                    </td>
+                    <td class="verify-phonenumber">
+                        @item.TelHome
+                    </td>
+                    <td class="verify-phonenumber">
+                        @item.TelOffice
+                    </td>
+                    <td class="verify-phonenumber">
+                        @item.Mobile
+                    </td>
+                    <td>
+                        @item.Fax
+                    </td>
+                </tr> 
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,77 @@
+﻿@model WrapUpViewModel
+@*<div class="bs-docs-example noborder">
+    <div class="bs-docs-example-header">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;Wrap Up
+    </div>*@
+<div id="warpup-info">
+    @using (Html.BeginForm("SaveWrapUp", "Crm", FormMethod.Post))
+    {       
+        <div class="form-inline">
+            <div class="form-group">
+                @Html.LabelFor(m => m.WrapupDatetime)
+                <div class="input-group date" @*data-provide="datepicker"*@>
+                    @Html.TextBoxFor(m => m.WrapupDatetime, new { @class = "form-control", placeholder = "Enter Note Date", Value = Model.WrapupDatetime.ToDisplay(), @readonly = "readonly" })
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.WrapupDatetime)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WrapupAccountNo)
+                @Html.TextBoxFor(m => m.WrapupAccountNo, new { @class = "form-control account-no" })
+                @Html.ValidationMessageFor(model => model.WrapupAccountNo)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ReasonDesc)
+                @Html.DropDownListFor(m => m.ReasonDesc, (IEnumerable<SelectListItem>)ViewData["ReasonList"], new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ReasonDesc)
+            </div>
+            <div class="form-group">
+                <button type="button" id="btnClearWrapText" class="btn btn-default">
+                    CLEAR</button>
+            </div>
+            <div class="form-group">
+                <button type="button" id="btnSaveWrapText" class="btn btn-primary">
+                    SAVE & READY</button>
+            </div>
+        </div>
+        if (Model.CallSession.ToLower().StartsWith("outbound"))
+        { 
+        <div class="form-inline">
+            <div class="form-group">                
+                @Html.LabelFor(m => m.IsCallbackSuccess)
+                @Html.CheckBoxFor(m => m.IsCallbackSuccess)
+                @Html.ValidationMessageFor(m => m.IsCallbackSuccess)
+            </div>
+        </div>            
+        }
+        <div class="form-horizontal space-above">
+            <div class="form-group">
+                @Html.TextAreaFor(m => m.WrapupText, new { @class = "form-control full-width", rows = "4" })
+                @Html.ValidationMessageFor(model => model.WrapupText)
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.AgentId, new { @id = "WrapupAgentId" })
+        @Html.HiddenFor(m => m.CallSession, new { @id = "WrapupCallSession" })
+        @Html.HiddenFor(m => m.CallStartTime, new { @id = "WrapupCallStartTime" })
+        @Html.HiddenFor(m => m.ClientId, new { @id = "WrapupClientId" })
+        @Html.HiddenFor(m => m.CustomerPhone, new { @id = "WrapupCustomerPhone" })
+        @Html.HiddenFor(m => m.Extension, new { @id = "WrapupExtension" })
+        @Html.HiddenFor(m => m.OriginalAccountNo, new { @id = "WrapupOriginalAccountNo" })
+        @Html.HiddenFor(m => m.OriginalClientId, new { @id = "WrapupOriginalClientId" })
+        @Html.HiddenFor(m => m.PoaId, new { @id = "WrapupPoaId" })
+    }
+    <div id="wrapup-poa-info" style="display: none;">
+        <strong>** Calling by POA </strong><span id="wrapup-poa-name">กกก</span>
+        <hr />
+    </div>
+</div>
+@Html.DevExpress().LoadingPanel(
+        settings =>
+        {
+            settings.Name = "WrapupLoadingPanel";
+            settings.Modal = true;
+            settings.ContainerElementID = "warpup-info";
+        }
+    ).GetHtml()

@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DDE8B81D-D00E-471D-80D9-8B929692F38B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Phatra.CallCenter</RootNamespace>
+    <AssemblyName>Phatra.CallCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PTSECMSWEBU2|AnyCPU'">
+    <OutputPath>bin\PTSECMSWEBU2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PTSECMSWEB11|AnyCPU'">
+    <OutputPath>bin\PTSECMSWEB11\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\CallCenter.Poco.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenter.Poco.Metadata.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterAccountInfo.cs" />
+    <Compile Include="Data\CallCenterGetAccountBankSettleResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountBankSettleResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountInfoResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountInfoResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountListResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountListResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountMutualFundResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountMutualFundResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountPortfolioInfoResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAccountPortfolioInfoResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAddrInfoResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetAddrInfoResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetBankingTabStatusResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetBankingTabStatusResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetCashTranResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetCashTranResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetClientListFromPhonenoResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetClientListFromPhonenoResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetDrilldownLoginResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetDrilldownLoginResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetEdividendResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetEdividendResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetEquNetBuySellResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetEquNetBuySellResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetHistoryWrapUpInfoResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetHistoryWrapUpInfoResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetLoginResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetLoginResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetMfTranResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetMfTranResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetMissedCallListResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetMissedCallListResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetPoaResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetPoaResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetProfileResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetProfileResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetQuestionVerificationResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetQuestionVerificationResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetReminderResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetReminderResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetSearchClientResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetSearchClientResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetWrapUpInfoResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetWrapUpInfoResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetWrapupReasonResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallCenterGetWrapupReasonResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\CallLogInfoItem.cs" />
+    <Compile Include="Data\LogCallInformationServiceItems.cs" />
+    <Compile Include="Data\RefGetPurposeVerificationsResult.cs">
+      <DependentUpon>CallCenter.Poco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RefGetPurposeVerificationsResult.Metadata.cs">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VerificationResult.cs" />
+    <Compile Include="Exceptions\BaseCashierBusinessException.cs" />
+    <Compile Include="Exceptions\GeneralBusinessException.cs" />
+    <Compile Include="Managers\ServicesManager.cs" />
+    <Compile Include="Managers\CrmManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EF\CallCenterEdm.edmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\CallCenter.Poco.Metadata.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CallCenter.Poco.Metadata.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\CallCenter.Poco.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CallCenter.Poco.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\__Log.CallCenter.Poco.Metadata.txt">
+      <DependentUpon>CallCenter.Poco.Metadata.tt</DependentUpon>
+    </Content>
+    <Content Include="Exceptions\BusinessException.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constants\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Phatra.Core\Phatra.Core.csproj">
+      <Project>{ECC8CDFF-7968-48D2-8B59-5CB7751EFB08}</Project>
+      <Name>Phatra.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

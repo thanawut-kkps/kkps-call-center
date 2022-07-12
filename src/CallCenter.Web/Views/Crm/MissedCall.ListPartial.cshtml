@@ -1,0 +1,56 @@
+﻿@model List<CallCenterGetMissedCallListResult>
+<div id="missedcall-list">
+    <table class="table table-striped @(Model.Count > 0 ? "sortable" : "")">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    Phone Number
+                </th>
+                <th class="">
+                    Customer Name
+                </th>
+                <th class="">
+                   Priority
+                </th>
+                <th class="">
+                   Missed Call Timestamp
+                </th>
+                <th data-defaultsort='disabled' class="" >
+                   Action
+                </th>                
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="text-center phone-number" data-value="@item.CustomerPhone.Trim()">
+                        @item.CustomerPhone
+                    <td class="">
+                       @item.CustomerName 
+                    </td>
+                    <td class="">
+                        @item.Priority
+                    </td>
+                    <td class="" data-dateformat="D-MMMM-YYYY HH:mm:ss">
+                        @(item.CallStartTime.HasValue ? item.CallStartTime.Value.ToString("d-MMM-yyyy HH:mm:ss") : string.Empty)
+                    </td>
+                    <td class="">
+                        <a href="javascript:void(0);" onclick="MakeCall('@item.CustomerPhone', '@item.ClientId')"><i class="fa fa-phone"></i>&nbsp;Make Call</a>
+                    </td>                  
+                </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">
+                        There is no data.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

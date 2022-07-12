@@ -1,0 +1,125 @@
+﻿@model List<CallCenterGetReminderResult>
+@{
+    var gridName = "gridReminderList";
+    GridViewSettings settings = new GridViewSettings();
+
+    settings.Name = gridName;
+    settings.KeyFieldName = "ReminderId";
+    settings.Width = Unit.Percentage(100);
+
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "IndexReminderListGridPartial" };
+    settings.ClientSideEvents.BeginCallback = settings.Name + "_BeginCallback";
+    settings.ClientSideEvents.EndCallback = settings.Name + "_EndCallback";
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Setup", Action = "IndexReminderListAddPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Setup", Action = "IndexReminderListUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Setup", Action = "IndexReminderListDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.SettingsEditing.ShowModelErrorsForEditors = true;
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.CommandColumn.ShowNewButtonInHeader = true;
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Details";
+        column.Caption = "Details";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "AccountNo";
+        column.Caption = "Account No";
+        column.ColumnType = MVCxGridViewColumnType.TextBox;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "RemindDate";
+        column.Caption = "Remind Date";
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+
+        var properties = column.PropertiesEdit as DateEditProperties;
+        properties.EditFormat = EditFormat.Custom;
+        properties.EditFormatString = DisplayFormat.DateEditFormat;
+        properties.DisplayFormatString = DisplayFormat.DateDisplayFormatString;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Record_date";
+        column.Caption = "Record date";
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+
+        var properties = column.PropertiesEdit as DateEditProperties;
+        properties.EditFormat = EditFormat.Custom;
+        properties.EditFormatString = DisplayFormat.DateEditFormat;
+        properties.DisplayFormatString = DisplayFormat.DateDisplayFormatString;
+
+    });
+
+ 
+   
+    //settings.SetEditFormTemplateContent(c =>
+    //{
+    //    Lombard.Web.ViewModels.Setup.LTVRateCollaAccountsViewModel viewModel;
+
+    //    if (c.Grid.IsNewRowEditing)
+    //    {
+    //        viewModel = new Lombard.Web.ViewModels.Setup.LTVRateCollaAccountsViewModel() { TodayDate = Model.TodayDate, IsNewData = true };
+    //    }
+    //    else
+    //    {
+    //        viewModel = c.Grid.GetRow(c.ItemIndex) as Lombard.Web.ViewModels.Setup.LTVRateCollaAccountsViewModel;            
+    //        viewModel.LTVRates = Lombard.Web.Utilities.DataProvider.GetLTVRatesViewModels(viewModel.RateCode);
+    //    }
+        
+    //    Html.RenderPartial("RateByAccount.EditFormPartial", ViewData["EditableRateByAccount"] ?? viewModel);
+    //});
+
+    //settings.CommandButtonInitialize = (s, e) =>
+    //{
+    //    MVCxGridView grid = (MVCxGridView)s;
+    //    DateTime startDate = Convert.ToDateTime(grid.GetRowValues(e.VisibleIndex, "StartDate"));
+
+    //    DateTime? endDate = null;
+        
+    //    if (grid.GetRowValues(e.VisibleIndex, "EndDate") != null)
+    //    {
+    //        endDate = Convert.ToDateTime(grid.GetRowValues(e.VisibleIndex, "EndDate"));
+    //    }
+
+    //    if (e.ButtonType == ColumnCommandButtonType.New)
+    //    {
+    //        e.Enabled = !string.IsNullOrWhiteSpace(Model.AccountNO);
+    //        e.Visible = !string.IsNullOrWhiteSpace(Model.AccountNO);
+    //    }
+    //    else if (e.ButtonType == ColumnCommandButtonType.Delete)
+    //    {
+    //        e.Enabled = Model.TodayDate <= startDate;
+    //    }
+
+    //    else if (e.ButtonType == ColumnCommandButtonType.Edit || e.ButtonType == ColumnCommandButtonType.Update)
+    //    {
+    //        e.Enabled = Model.TodayDate < (endDate ?? Model.TodayDate.AddDays(1));
+    //    }
+    //};    
+    
+    var gridView = Html.DevExpress().GridView(settings);
+
+    if (ViewData["EditError"] != null)
+    {
+        gridView.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@gridView.Bind(Model).GetHtml()

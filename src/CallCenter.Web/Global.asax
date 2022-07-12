@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="CallCenter_Web.MvcApplication" Language="C#" %>

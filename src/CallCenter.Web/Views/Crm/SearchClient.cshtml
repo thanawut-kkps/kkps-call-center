@@ -1,0 +1,288 @@
+﻿@{
+    ViewBag.Title = "Search Client";
+}
+<div class="panel-gadget">
+    <div class="panel-gadget-header">
+        <i class="fa fa-binoculars"></i>&nbsp;&nbsp;Search Client
+    </div>
+    <div class="panel-gadget-header-right">
+        @if (Request.QueryString["session"] != null)
+        {
+            if (!Request.QueryString["session"].StartsWith("init") || Request.QueryString["session"].StartsWith("outbound"))
+            {
+            <a href="javascript:void(0);" onclick="lnkOpenWarpup_Click()" title="Wrap Up"><i
+            class="fa fa-pencil-square-o"></i>&nbsp;Wrap Up</a>
+            }
+            if (Request.QueryString["session"].StartsWith("init"))
+            {
+            <a href="javascript:void(0);" onclick="lnkMissedCall_Click()" title="Go to Missed
+            Call Page"> <i class="fa fa-list"></i>&nbsp;Missed Call List</a>
+            }            
+        }
+    </div>
+    <div style="clear: both; margin-left: 10px; margin-top: 40px;">
+        @Html.Action("SearchClientPartial")
+    </div>
+</div>
+<div class="modal fade" id="form-dialog" tabindex="-1" role="dialog" aria-labelledby="form-dialog-label" 
+         data-warpformurl='@Url.Action("SearchClientWrapUpParial", "Crm")' >
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@section DevexpressScripts
+{
+    <script type="text/javascript">
+        function cbpClientResultContainer_BeginCallback(s, e) {
+            e.customArgs['_searchText'] = $("#searchText").val();
+        }
+    </script>
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnSearchClient").click(function () {
+                cbpClientResultContainer.PerformCallback();
+            });
+
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY").isValid();
+            }
+
+        });
+
+        function onClientSelected(clientId, accountNo, product) {
+
+            var queryString = "";
+
+            var itemKey = "session";
+            var itemValue = getParameterByName(itemKey);
+            if (itemValue != "") {
+
+            }
+
+            location.href = '@Url.Action("Index", "Crm")?nclientid=' + clientId + "&naccountno=" + accountNo + '&prdct=' + product +
+                                getQueryParameterWithValue("client_id") +
+                                getQueryParameterWithValue("accountno") +
+                                getQueryParameterWithValue("session") +
+                                getQueryParameterWithValue("call_starttime") +
+                                getQueryParameterWithValue("customer_phone") +
+                                getQueryParameterWithValue("agent_id") +
+                                getQueryParameterWithValue("extension");
+        }
+
+        function getQueryParameterWithValue(key) {
+            var itemKey = key;
+            var itemValue = getParameterByName(itemKey);
+            if (itemValue != "") {
+                return "&" + key + "=" + itemValue;
+            }
+            return "";
+        }
+
+        function lnkMissedCall_Click() {
+            location.href = '@Url.Action("MissedCall", "Crm")?a=' +
+                                getQueryParameterWithValue("client_id") +
+                                getQueryParameterWithValue("accountno") +
+                                getQueryParameterWithValue("session") +
+                                getQueryParameterWithValue("call_starttime") +
+                                getQueryParameterWithValue("customer_phone") +
+                                getQueryParameterWithValue("agent_id") +
+                                getQueryParameterWithValue("extension");
+        }
+
+        function lnkOpenWarpup_Click() {
+            popupWrapupDialog(getParameterByName("session"), getParameterByName("call_starttime"),
+                                getParameterByName("customer_phone"), getParameterByName("extension"),
+                                getParameterByName("agent_id"));
+        }
+
+        function popupWrapupDialog(callSession, callStartTime, customerPhone, extension, agentId) {
+            var $dialog = $("#form-dialog");
+            var $container = $(".modal-content", $dialog);
+
+            $.ajax({
+                type: "POST",
+                url: $dialog.data("warpformurl"),
+                dataType: "json",
+                data: { _callSession: callSession, _callStartTime: callStartTime,
+                    _customerPhone: customerPhone, _extension: extension, _agentId: agentId
+                },
+                success: function (result) {
+                    if (!result.valid) {
+                        NofityErrorMessage(result.message);
+                    }
+                    else {
+                        $container.html(result.message);
+                        $.validator.unobtrusive.parse($container);
+                        $('form', $container).validateBootstrap();
+
+                        $dialog.on('hidden.bs.modal', function (e) {
+                            $container.empty();
+                        })
+
+                        $("#btnSaveWrapText").click(function () {
+                            var $form = $("#btnSaveWrapText").closest("form");
+                            if ($form.valid()) {
+                                if (IsCalling()) {
+                                    Finesse_GetState(getParameterByName("agent_id"), saveWrapupCallback);
+                                }
+                                else {
+                                    saveWarpup(function () {
+                                        NotifySuccessMessage("Data was saved successfully");
+                                    });
+                                }
+                            }
+                        });
+
+                        $("#btnClearWrapText").click(function () {
+                            $("#WrapupText").val("");
+                            $(this).resetValidation();
+                        });
+
+                        $dialog.modal('show');
+                    }
+                },
+                close: function (event, ui) { $container.empty(); }
+            });
+        }
+
+
+        function saveWarpup(successCallback) {
+            var $form = $("#btnSaveWrapText").closest("form");
+            if ($form.valid()) {
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    if (!result.valid) {
+                        NofityErrorMessage(result.message);
+                        return false;
+                    } else {
+                        successCallback();
+                        $("#form-dialog").modal('hide');
+                    }
+                    return true;
+                });
+            }
+        }
+
+
+        function Finesse_GetState(agentId, callback) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetFinesseUserState")',
+                dataType: "json",
+                data: { _agentId: agentId },
+                beforeSend: function () {
+                    WrapupLoadingPanel.Show();
+                }
+            })
+            .done(function (result) {
+                if (callback) {
+                    callback(result.message);
+                    WrapupLoadingPanel.Hide();
+                }
+            });
+        }
+
+        function saveWrapupCallback(state) {
+            if (state == "TALKING") {
+                saveWarpup(function () {
+                    NotifySuccessMessage("Data was saved successfully");
+                });
+            }
+            else if (state == "WORK") {
+                var strConfirm = "Please confirm to change state to ready?";
+
+                ConfirmMessage(strConfirm,
+                    function () {
+                        saveWarpup(function () {
+                            if (CanChangeStatusToReady()) {
+                                if (!UpdateWrapupMain($("#ReasonDesc").val())) {
+                                    NofityWarningMessage("Data was saved successfully but unable to change state to ready.");
+                                }
+                            }
+                            else {
+                                // window.location = '@Url.Action("Index")?agent_id=' + getParameterByName("agent_id") + '&session=init';
+                                redirectToSearchPage();
+                            }
+                        });
+                    },
+                    null);
+            }
+            else if (state == "NOT_READY") {
+                var strConfirm = "Please confirm to save warpup and after that it will redirect to search page?";
+
+                ConfirmMessage(strConfirm,
+                    function () {
+                        saveWarpup(function () {
+                            //window.location = '@Url.Action("Index")?agent_id=' + getParameterByName("agent_id") + '&session=init';
+                            redirectToSearchPage();
+                        });
+                    },
+                    null);
+            }
+            else if (state == "LOGOUT") {
+
+                var strConfirm = "[LOGOUT] Please confirm to save warpup and after that it will redirect to search page?";
+
+                ConfirmMessage(strConfirm,
+                    function () {
+                        saveWarpup(function () {
+                            //var url = '@Url.Action("Index")?agent_id=' + getParameterByName("agent_id") + '&session=init';
+                            //window.location = url;
+                            redirectToSearchPage();
+                        });
+                    },
+                    null);
+            }
+            else {
+                var strConfirm = "[" + state + "] Please confirm to save warpup and after that it will redirect to search page?";
+
+                ConfirmMessage(strConfirm,
+                    function () {
+                        saveWarpup(function () {
+                            redirectToSearchPage();
+                            //window.location = '@Url.Action("Index")?agent_id=' + getParameterByName("agent_id") + '&session=init';
+                        });
+                    },
+                    null);
+            }
+        }
+
+        function IsCalling() {
+            var session = getParameterByName("session") + "X";
+            if (session.substring(0, "init".length) === "init") {
+                return false;
+            }
+            return true;
+        }
+
+        function CanChangeStatusToReady() {
+            var session = getParameterByName("session") + "X";
+            if (session.substring(0, "init".length) === "init"
+                || session.substring(0, "outbound".length) === "outbound") {
+                return false;
+            }
+            return true;
+        }
+
+        function UpdateWrapupMain(reason) {
+            if (self != top) {
+                parent.postMessage("{\"method\": \"wrapup\", \"msg\": \"" + reason + "\"}", "*");
+                return true;
+            }
+            else {
+                sendMessageToServer("Reason:'" + reason + "' is sent but this page is not contained in Gatget in Finesse");
+                return false;
+            }
+        }
+
+        function redirectToSearchPage() {
+            window.location.replace('@Url.Action("Index")?agent_id=' + getParameterByName("agent_id") + '&session=init');
+        }
+
+    </script>
+}

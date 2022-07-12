@@ -1,0 +1,28 @@
+- Edmx File: ..\EF\CallCenterEdm.edmx
+- Processed Code File: CallCenterGetAccountBankSettleResult.Metadata.cs
+- Processed Code File: CallCenterGetAccountInfoResult.Metadata.cs
+- Processed Code File: CallCenterGetAccountListResult.Metadata.cs
+- Processed Code File: CallCenterGetAccountMutualFundResult.Metadata.cs
+- Processed Code File: CallCenterGetAccountPortfolioInfoResult.Metadata.cs
+- Processed Code File: CallCenterGetAddrInfoResult.Metadata.cs
+- Processed Code File: CallCenterGetBankingTabStatusResult.Metadata.cs
+- Processed Code File: CallCenterGetCashTranResult.Metadata.cs
+- Processed Code File: CallCenterGetClientListFromPhonenoResult.Metadata.cs
+- Processed Code File: CallCenterGetDrilldownLoginResult.Metadata.cs
+- Processed Code File: CallCenterGetEdividendResult.Metadata.cs
+- Processed Code File: CallCenterGetEquNetBuySellResult.Metadata.cs
+- Processed Code File: CallCenterGetHistoryWrapUpInfoResult.Metadata.cs
+- Processed Code File: CallCenterGetLoginResult.Metadata.cs
+- Processed Code File: CallCenterGetMfTranResult.Metadata.cs
+- Processed Code File: CallCenterGetMissedCallListResult.Metadata.cs
+- Processed Code File: CallCenterGetPoaResult.Metadata.cs
+- Processed Code File: CallCenterGetProfileResult.Metadata.cs
+- Processed Code File: CallCenterGetQuestionVerificationResult.Metadata.cs
+- Processed Code File: CallCenterGetReminderResult.Metadata.cs
+- Processed Code File: CallCenterGetSearchClientResult.Metadata.cs
+- Processed Code File: CallCenterGetWrapUpInfoResult.Metadata.cs
+- Processed Code File: CallCenterGetWrapupReasonResult.Metadata.cs
+- Processed Code File: RefGetPurposeVerificationsResult.Metadata.cs
+- 
+
+

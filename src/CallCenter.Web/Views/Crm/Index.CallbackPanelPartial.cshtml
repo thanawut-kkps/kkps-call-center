@@ -1,0 +1,13 @@
+﻿@model ClientInfoViewModel
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpClientContainer";
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "IndexCallbackPanelPartial" };
+    settings.ClientSideEvents.BeginCallback = "cbpClientContainer_BeginCallback";
+    settings.ClientSideEvents.EndCallback = "cbpClientContainer_EndCallback";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("Index.Partial", Model);    
+    });
+}).GetHtml()

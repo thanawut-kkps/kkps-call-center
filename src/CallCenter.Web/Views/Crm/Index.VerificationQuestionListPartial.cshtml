@@ -1,0 +1,73 @@
+﻿@model List<CallCenterGetQuestionVerificationResult>
+<div class="space-above">
+    <!--[if lte IE 9]>
+<div id="verification-wraper" class="old_ie_wrapper">
+<!--<![endif]-->
+    <table class="table table-striped fixed_headers">
+        <thead>
+            <tr>
+                <th class="col-md-1">
+                    No.
+                </th>
+                <th class="col-md-6">
+                    Question
+                </th>
+                <th class="col-md-3 text-center">
+                    Result
+                </th>
+                <th class="col-md-2 text-center">
+                    View Answer
+                </th>
+            </tr>
+        </thead>
+        <tbody style="max-height: @(Model.Count > 0 ? "132" : "50")px;">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="col-md-1">
+                        @item.Seqno
+                    </td>
+                    <td class="col-md-6">
+                        @(item.IsPoaQuestion == "Y" ? Html.Raw("<span class='label label-warning'>POA</span>") : null) @item.QuestionDetail @(item.MustAsk ? Html.Raw("<span class='label label-warning'>Required</span>") : null) 
+                    </td>
+                    <td class="col-md-3 text-center">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle dropdown-toggle-verification-result btn-notverified" data-toggle="dropdown" href="#" data-isrequired="@item.MustAsk" data-questionid="@item.QuestionId" data-is-poa-question="@item.IsPoaQuestion">
+                                Not Verified <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-verification">
+                                <li><a href="#" class="btn-notverified">Not Verified</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" class="btn-success">Passed</a></li>
+                                <li><a href="#" class="btn-danger">Failed</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="col-md-2 text-center">
+                        @if (!string.IsNullOrWhiteSpace(item.MapToHtml))
+                        {
+                            <a href="javascript:void(0);" class="verification-view-answer" onclick="setContainerHighlight('@item.MapToHtml', true);">
+                                <i class="fa fa-check-circle-o"></i>View Answer</a>
+                        }
+                    </td>
+                </tr> 
+                }
+            }
+            else
+            {
+                <tr class="row-no-data">
+                    <td class="col-md-1">
+                    </td>
+                    <td colspan="2" class="col-md-9 text-center">
+                        There is no data.
+                    <td class="col-md-1">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!--[if lte IE 9]>
+</div>
+<!--<![endif]-->
+</div>

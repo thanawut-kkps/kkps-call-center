@@ -1,0 +1,69 @@
+﻿@model MissedCallViewModel
+@{
+    ViewBag.Title = "Missed Call";
+}
+<div class="panel-gadget" id="finesse-data" 
+    data-agentid='@Model.AgentId'>
+    <div class="panel-gadget-header">
+        <i class="fa fa-binoculars"></i>&nbsp;&nbsp;Missed Call List
+    </div>
+    <div class="panel-gadget-header-right">
+        <a href="javascript:void(0);" onclick="lnkBackToSearch_Click()" title="Go to Missed Call Page">
+            <i class="fa fa-reply"></i>&nbsp;Back to Search</a>
+    </div>
+    <div style="clear: both; margin-left: 10px; margin-top: 40px;">
+        @Html.Action("MissedCallListPartial")
+    </div>
+</div>
+@section Scripts 
+{
+    <script src="~/Scripts/signalR/MissedCallNotification.js"></script>  
+    <script type="text/javascript">
+
+        function getAgentId() {
+            return $("#finesse-data").data("agentid");
+        }
+
+        function getCallSession() {
+            return "init";
+        }
+
+        function lnkBackToSearch_Click() {
+            window.location = '@Url.Action("Index")?agent_id=' + getAgentId() + '&session=' + getCallSession();
+        }
+
+        function MakeCall(tel, clientId) {
+            if (self != top) {
+                Finesse_ChangeToNotReady();
+                Finesse_MakeCall(tel);
+                goToCrmPage(tel, clientId);
+            }
+            else {
+                sendMessageToServerCallback("Make call to:'" + tel + "' is sent but this page is not contained in Gatget in Finesse", function () { goToCrmPage(tel, clientId) });
+            }
+        }
+
+        function goToCrmPage(tel, clientId) {
+            var url = '@Url.Action("Index", "Crm")?customer_phone=' + tel + '&session=outbound&agent_id=' + getAgentId();
+
+            if (clientId == "-1") {
+                url = url + "&client_id=" + clientId;
+            }
+            else
+            {
+                url = url + "&nclientid=" + clientId;
+            }
+
+            location.href = url;
+        }
+
+        function Finesse_ChangeToNotReady() {
+            parent.postMessage("{\"method\": \"notready\", \"msg\": \"3\"}", "*");
+        }
+
+        function Finesse_MakeCall(tel) {
+            parent.postMessage("{\"method\": \"makecall\", \"msg\": \"" + tel + "\"}", "*");
+        }
+
+    </script>
+}

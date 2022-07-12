@@ -1,0 +1,400 @@
+﻿@model CallCenterGetBankingTabStatusResult
+<div class="row nomargin row-detail space-above">
+    <div class="col-md-2 nopadding">
+        <strong>GUID Status:</strong>
+    </div>
+    <div class="col-md-4 nopadding">
+        @Model.GUIDStatus
+    </div>
+    <div class="col-md-2 nopadding">
+        <strong>Reason:</strong>
+    </div>
+    <div class="col-md-4 nopadding">
+        @Model.Reason
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-2 nopadding">
+        <strong>Consent Status:</strong>
+    </div>
+    <div class="col-md-10 nopadding">
+        @Model.ConsentStatus
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    Note:
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="3" class="text-center consequence">
+                Consequence
+            </th>
+            <th colspan="5" class="text-center">
+                Conditions
+            </th>
+        </tr>
+        <tr>
+            <th class="text-center consequence" style="width: 25%;">
+                Client View
+            </th>
+            <th class="text-center consequence" style="width: 10%;">
+                Banking Tab Activate
+            </th>
+            <th class="text-center consequence" style="width: 15%;">
+                Deposit in consolidated statement realtime
+            </th>
+            <th class="text-center" style="width: 10%;">
+                GUID Match
+            </th>
+            <th class="text-center" style="width: 10%;">
+                Can Trade
+            </th>
+            <th class="text-center" style="width: 10%;">
+                "Accept" Banking terms and condition
+            </th>
+            <th class="text-center" style="width: 10%;">
+                Consent Flag
+            </th>
+            <th class="text-center" style="width: 10%;">
+                Email/Phone at KK
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center" rowspan="2">
+                Accept Terms and condition
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                Realtime
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="2">
+                Banking Account details
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                Realtime
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="6">
+                Landing Page
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                T-1
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                View only
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                T-1
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                View only
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                View only
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                Realtime
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                View only
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="4">
+                Customer Profile is not completed
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                Realtime
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                T-1
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-check"></i>
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                -
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+            <td class="text-center">
+                <i class="fa fa-times"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

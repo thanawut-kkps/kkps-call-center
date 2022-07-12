@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<exceptions>
+  <exceptionGroup name="Phatra.Core.Exceptions">
+    <exception name="SqlServerBusinessException">
+      <message>{0}</message>
+      <otherMessage></otherMessage>
+    </exception>
+  </exceptionGroup>
+  <exceptionGroup name="Phatra.CallCenter.Exceptions">
+    <exception name="GeneralBusinessException">
+      <message>{0}</message>
+      <otherMessage></otherMessage>
+    </exception>
+    <exception name="ModelStateInValidException">
+      <message>โปรดระบุข้อมูลให้ครบถ้วน</message>
+      <otherMessage></otherMessage>
+    </exception>
+  </exceptionGroup>
+</exceptions>

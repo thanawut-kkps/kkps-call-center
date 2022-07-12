@@ -1,0 +1,37 @@
+﻿@model Dictionary<string, object>
+
+<div class="row nomargin">        
+    <div class="form-inline">
+        <div class="form-group">
+            <span id="accountPortfolioListLoading" style="padding-left:20px;display:none;float:right">Loading ...</span>
+            @Html.Label("Account Number")    
+            @Html.DropDownList("AccountPortfolioList", (List<SelectListItem>)ViewData["accountList"], new { @class = "form-control", onchange = "OnAccountPortfolioChange()", style = "width: 200px"})                        
+        </div>                 
+    </div>
+</div>
+<div class="row nomargin space-above row-detail">
+    <div class="col-md-2 nopadding">
+        <strong>Account Name</strong>
+    </div>
+    <div class="col-md-3 nopadding text-ellipsis verify-contactnamet" data-placement="bottom" data-html="true" data-toggle="tooltip">
+        @ViewBag.accountName
+    </div>
+    <div class="col-md-2 nopadding">
+        <strong>Suitability Level</strong>
+    </div>
+    <div class="col-md-3 nopadding text-ellipsis verify-contactnamet" data-placement="bottom" data-html="true" data-toggle="tooltip">
+        @ViewBag.suitLevel            
+    </div>
+    <div class="col-md-1 nopadding">
+        <strong>Status</strong>
+    </div>
+    <div class="col-md-1 nopadding text-ellipsis verify-contactnamet" data-placement="bottom" data-html="true" data-toggle="tooltip">
+        @ViewBag.accountStatus        
+    </div>
+</div>
+<div class="row nomargin space-above">
+    <div class="col-md-12 nopadding">
+      @Html.Action("AccountPortfolioCallbackPanelResultPartial", new { selectedAccountNo = Model["selectedAccountNo"], clientID = Model["clientID"] })
+    </div>
+</div>
+

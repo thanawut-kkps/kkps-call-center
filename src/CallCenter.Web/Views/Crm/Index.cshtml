@@ -1,0 +1,855 @@
+﻿@model CallCenter.Web.ViewModels.ClientInfoViewModel
+@{
+    ViewBag.Title = "Customer Relation Management";
+}
+<div id="finesse-data" 
+    data-orginalclientid='@Model.OriginalClientId' 
+    data-originalaccountno='@Model.OriginalAccountNo'    
+    data-customerphone='@Model.CustomerPhone'
+    data-callstarttime='@Model.CallStartTime'
+    data-callsession='@Model.CallSession'
+    data-agentid='@Model.AgentId'
+    data-extension='@Model.Extension'    
+    data-clientid='@Model.ClientId'
+    data-accountno='@Model.AccountNo'>
+    @Html.Partial("Index.CallbackPanelPartial", Model)
+</div>
+<div class="modal fade" id="selection-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Client Selection</h4>
+            </div>
+            <div class="modal-body" id="selection-dialog-body" data-clientselectionurl='@Url.Action("SearchClientPartialJson", "Crm")'>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="account-portfolio-dialog" tabindex="-1" role="dialog"
+    aria-labelledby="accountPortfolioModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="width: 1200px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Account Portfolio</h4>
+            </div>
+            <div class="modal-body" id="account-portfolio-dialog-body" data-accountportfoliourl='@Url.Action("AccountPortfolioPartialJson", "Crm")'>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="form-dialog" tabindex="-1" role="dialog" aria-labelledby="form-dialog-label" 
+         data-reminderformurl='@Url.Action("IndexReminderFormPartial", "Crm")'
+         data-remindercancelurl='@Url.Action("CancelReminder", "Crm")'
+         data-drilldownusernameurl='@Url.Action("IndexUserNameDrilldownListPartialJson", "Crm")'>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@section DevexpressScripts
+{
+    <script type="text/javascript">
+
+        var _accountType;
+        var _resultVerifieds;
+        var _latestHighlightSelector;
+
+        function cbpClientContainer_BeginCallback(s, e) {
+            e.customArgs['_originalClientId'] = getOriginalClientId();
+            e.customArgs['_clientId'] = getCurrentClientId();
+            e.customArgs['_accountNo'] = getCurrentAccountNo();
+            e.customArgs['_callSession'] = getCallSession();
+            e.customArgs['_product'] = getCurrentProduct();
+            e.customArgs['_agentId'] = getAgentId();
+            e.customArgs['_callStartTime'] = getCallStartTime();
+        }
+
+        function cbpClientContainer_EndCallback(s, e) {
+            bindEventToControl();
+            $.validator.unobtrusive.parse(document);
+            $('form').validateBootstrap();
+            _resultVerifieds = null;
+        }
+
+        function IsNeedToVerify() {
+            return (IsCalling() && getOriginalClientId() === "");
+        }
+
+        function IsPassedVerify() {
+            return _IsPassedVerificationResult === true;
+        }
+
+        function cbpAccountInfoContainer_BeginCallback(s, e) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("KKDepositBalance")',
+                dataType: "json",
+                data: { selectedAccountNo: getCurrentAccountNo() },
+                success: function (result) {
+                }
+            });
+
+            e.customArgs['_accountNo'] = getCurrentAccountNo();
+            e.customArgs['_accountType'] = _accountType;
+            e.customArgs['_clientId'] = getCurrentClientId();
+        }
+
+        function cbpAccountInfoContainer_EndCallback(s, c) {
+            $('[data-toggle="tooltip"]').tooltip();
+            $.bootstrapSortable(true);
+            setContainerHighlight(_latestHighlightSelector, true);
+
+            if (IsNeedToVerify() && IsPassedVerify() === false) {
+                $(".can-hide").invisible();
+            } else {
+                $(".can-hide").visible();
+            }
+        }
+
+        function cbpClientResultContainer_BeginCallback(s, e) {
+            e.customArgs['_searchText'] = $("#searchText").val();
+        }
+
+        function cbpAccountPortfolioResultContainer_BeginCallback(s, e) {
+            var clientID = getCurrentClientId();
+            popupAccountPortfolioDialog($("#AccountPortfolioList").val(), clientID);
+        }
+
+        function cbpReminderContainer_BeginCallback(s, e) {
+            e.customArgs['_clientId'] = getCurrentClientId();
+        }
+
+        function cbpReminderContainer_EndCallback(s, e) {
+            $.bootstrapSortable(true);
+        }
+
+        function cbpHistoryWrapupContainer_BeginCallback(s, e) {
+            e.customArgs['_clientId'] = getCurrentClientId();
+        }
+
+        function cbpHistoryWrapupContainer_EndCallback(s, e) {
+            $.bootstrapSortable(true);
+        }
+
+        function cbpVerificationQuestionListContainer_BeginCallback(s, e) {
+            storeSelectedVerification();
+            e.customArgs['_purposeId'] = $("#PurposeId").val();
+        }
+
+        function cbpVerificationQuestionListContainer_EndCallback(s, e) {
+            bindVerificationEvent();
+            restoreSelectedVerification();
+        }
+
+        function storeSelectedVerification() {
+            if (typeof _resultVerifieds === typeof undefined || _resultVerifieds == null) {
+                _resultVerifieds = {};
+            }
+
+            $(".dropdown-toggle-verification-result").each(function (a, b) {
+                if ($(this).hasClass("btn-success")) {
+                    _resultVerifieds[$(this).data("questionid")] = true;
+                } else if ($(this).hasClass("btn-danger")) {
+                    _resultVerifieds[$(this).data("questionid")] = false;
+                } else {
+                    delete _resultVerifieds[$(this).data("questionid")];
+                }
+            });
+        }
+
+        function restoreSelectedVerification() {
+            if (typeof _resultVerifieds !== typeof undefined && _resultVerifieds != null) {
+                for (var key in _resultVerifieds) {
+                    var $o = $(".dropdown-toggle-verification-result[data-questionid='" + key + "']");
+                    if ($o != null) {
+                        if (_resultVerifieds[key]) {
+                            var $pass = $(".dropdown-menu-verification li a.btn-success", $o.parent());
+                            $o.addClass($pass.attr("class")).html($pass.text() + ' <span class="caret"></span>');
+                            $o.removeClass("btn-notverified");
+                        } else {
+                            var $pass = $(".dropdown-menu-verification li a.btn-danger", $o.parent());
+                            $o.addClass($pass.attr("class")).html($pass.text() + ' <span class="caret"></span>');
+                        }
+                        $o.removeClass("btn-notverified");
+                    }
+                }
+            }
+        }
+
+    </script>
+}
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/signalR/MissedCallNotification.js"></script>
+    <script type="text/javascript">
+
+        var currentAttr;
+        var _IsPassedVerificationResult = false;
+
+        $(document).ready(function() {
+            bindEventToControl();
+        });
+
+        function setCurrentClientId(clientId) {
+            $("#current-client-data").data("clientid", clientId);
+        }
+
+        function getCurrentClientId() {
+            return $("#current-client-data").data("clientid");
+        }
+
+        function getOriginalClientId() {
+            return $("#finesse-data").data("orginalclientid");
+        }
+
+        function setCurrentAccountNo(accountNo) {
+            $("#current-client-data").data("accountno", accountNo);
+        }
+
+        function getCurrentAccountNo() {
+            return $("#current-client-data").data("accountno");
+        }
+
+        function getCurrentProduct() {
+            return $("#current-client-data").data("product");
+        }
+
+        function setCurrentProduct(product) {
+            $("#current-client-data").data("product", product);
+        }
+
+        function getCallSession() {
+            return $("#finesse-data").data("callsession");
+        }
+
+        function getCustomerPhone() {
+            return $("#finesse-data").data("customerphone");
+        }
+
+        function getAgentId() {
+            return $("#finesse-data").data("agentid");
+        }
+
+        function getCallStartTime() {
+            return $("#finesse-data").data("callstarttime");
+        }
+
+        function GetVerifiedStatus() {
+            var minPerson = parseInt($("#PurposeId option:selected").data("min-pass-person"));
+            var minPoa = parseInt($("#PurposeId option:selected").data("min-pass-poa"));
+
+            if ($(".dropdown-toggle-verification-result.btn-success").length === 0 &&
+                $(".dropdown-toggle-verification-result.btn-danger").length === 0) {
+                return "NotVerified";
+            }
+
+            if ($(".dropdown-toggle-verification-result.btn-success[data-is-poa-question='N']").length >= minPerson &&
+                $(".dropdown-toggle-verification-result.btn-success[data-is-poa-question='Y']").length >= minPoa) {
+                return "Passed";
+            }
+            return "Failed";
+        }
+
+        function refreshVerifiedStatus() {
+
+            $("#lblNotVerified").hide();
+            $("#lblPassedVerifying").hide();
+            $("#lblFailedVerifying").hide();
+
+            if (IsNeedToVerify()) {
+                $("#verify-info-container").show();
+            } else {
+                $("#verify-info-container").hide();
+            }
+
+            var verifiedStatus = GetVerifiedStatus();
+            if (verifiedStatus === "Passed") {
+                $("#lblPassedVerifying").show();
+            } else if (verifiedStatus === "Failed") {
+                $("#lblFailedVerifying").show();
+            } else {
+                $("#lblNotVerified").show();
+            }
+        }
+
+        function bindEventToControl() {
+            $(".account-no-link").click(function() {
+                setCurrentAccountNo($(this).text());
+                _accountType = $(this).data("product");
+
+                $(this).closest("tr").addClass('row-hilight').siblings().removeClass('row-hilight');
+                cbpAccountInfoContainer.PerformCallback();
+            });
+
+            $('.nav a').click(function(e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+
+            $("#btnSaveWrapText").click(function() {
+                var $form = $("#btnSaveWrapText").closest("form");
+                if ($form.valid()) {
+                    if (IsCalling()) {
+                        Finesse_GetState(getAgentId(), saveWrapupCallback);
+                    } else {
+                        saveWarpup(function() {
+                            NotifySuccessMessage("Data was saved successfully");
+                        });
+                    }
+                }
+            });
+
+
+            $("#btnSaveVerificationResult").click(function() {
+
+                if ($(".dropdown-toggle-verification-result.btn-notverified[data-isrequired='True']").length > 0) {
+                    NofityErrorMessage("Please verify the required question.");
+                    return false;
+                }
+
+                if ($(".dropdown-toggle-verification-result.btn-success").length === 0 &&
+                    $(".dropdown-toggle-verification-result.btn-danger").length === 0) {
+                    NofityErrorMessage("Please verify the question before save result.");
+                    return false;
+                }
+
+                var $form = $(this).closest("form");
+                if ($form.valid()) {
+                    $.post($form.attr('action'),
+                        createVerificationParam(),
+                        function(result) {
+                            if (!result.valid) {
+                                NofityErrorMessage(result.message);
+                                return false;
+                            } else {
+
+                                if (GetVerifiedStatus() === "Passed") {
+
+                                    NotifySuccessMessage("Passed verification result was saved successfully.");
+                                    _IsPassedVerificationResult = true;
+                                } else {
+
+                                    NofityWarningMessage("Failed to verify the question.");
+                                    _IsPassedVerificationResult = false;
+                                }
+
+                                if (IsNeedToVerify() && IsPassedVerify()) {
+                                    $(".can-hide").visible();
+                                } else {
+                                    $(".can-hide").invisible();
+                                }
+                            }
+                            return true;
+                        });
+                }
+                return false;
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+            $.bootstrapSortable(true);
+
+            bindDatePickerEvent();
+
+            $("#btnClearWrapText").click(function() {
+                $("#WrapupText").val("");
+                $(this).resetValidation();
+            });
+
+            bindVerificationEvent();
+            OnPurposeChange();
+            refreshVerifiedStatus();
+
+
+            $(".radio-checkbox").change(function() {
+                var isChecked = $(this).prop("checked");
+                var groupId = $(this).data('groupid');
+                $(".radio-checkbox[data-groupid='" + groupId + "']").prop('checked', false);
+
+                $(this).closest("tr").addClass('row-hilight').siblings().removeClass('row-hilight');
+
+                if (isChecked) {
+                    $("#WrapupPoaId").val($(this).val());
+                    $("#wrapup-poa-info").show();
+                    $("#wrapup-poa-name").html($(this).data("poaname"));
+                    $(this).closest("tr").addClass("row-hilight");
+                } else {
+                    $("#WrapupPoaId").val("");
+                    $("#wrapup-poa-name").html("");
+                    $("#wrapup-poa-info").hide();
+                    $(this).closest("tr").removeClass("row-hilight");
+                }
+                $(this).prop('checked', isChecked);
+            });
+
+            if (IsNeedToVerify()) {
+                if (IsPassedVerify() === false) {
+                    $(".can-hide").invisible();
+                } else {
+                    $(".can-hide").visible();
+                }
+            } else {
+                $(".can-hide").visible();
+            }
+
+            $.validator.methods.date = function(value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            };
+        }
+
+        function bindDatePickerEvent() {
+            $('.input-group.date:not(.disabled)').datepicker({
+                    todayHighlight: true,
+                    startDate: "+0d"
+                })
+                .on('show',
+                    function(e) {
+                        currentAttr = $("input", $(this)).attr('readonly');
+                        $('.day').click(function(event) {
+                            if (typeof currentAttr !== typeof undefined && currentAttr !== false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                        });
+                    });
+        }
+
+
+        function bindVerificationEvent() {
+            $(".dropdown-menu-verification li a").click(function() {
+                var selText = $(this).text();
+                var selCss = $(this).attr("class");
+                $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+
+                var $aDropdown = $(this).parents('.btn-group').find('.dropdown-toggle');
+
+                $aDropdown.removeClass(function(index, css) {
+                    return (css.match(/(^|\s)btn-\S+/g) || []).join(' ');
+                });
+
+                $aDropdown.addClass(selCss);
+
+                $aDropdown.html(selText + ' <span class="caret"></span>');
+
+                refreshVerifiedStatus();
+            });
+        }
+
+        function saveWarpup(successCallback) {
+            var $form = $("#btnSaveWrapText").closest("form");
+            if ($form.valid()) {
+                $.post($form.attr('action'),
+                    $form.serialize(),
+                    function(result) {
+                        if (!result.valid) {
+                            NofityErrorMessage(result.message);
+                            return false;
+                        } else {
+                            successCallback();
+                        }
+                        return true;
+                    });
+            }
+        }
+
+        function saveWrapupCallback(state) {
+            if (state === "TALKING") {
+                saveWarpup(function() {
+                    NotifySuccessMessage("Data was saved successfully");
+                });
+            } else if (state === "WORK") {
+                var strConfirm = "Please confirm to change state to ready?";
+
+                ConfirmMessage(strConfirm,
+                    function() {
+                        saveWarpup(function() {
+                            if (CanChangeStatusToReady()) {
+                                if (!UpdateWrapupMain($("#ReasonDesc").val())) {
+                                    NofityWarningMessage(
+                                        "Data was saved successfully but unable to change state to ready.");
+                                }
+                            } else {
+                                window.location = '@Url.Action("Index")?agent_id=@Model.AgentId&session=init';
+                            }
+                        });
+                    },
+                    null);
+            } else if (state === "NOT_READY") {
+                var strConfirm = "Please confirm to save warpup and after that it will redirect to search page?";
+
+                ConfirmMessage(strConfirm,
+                    function() {
+                        saveWarpup(function() {
+                            window.location = '@Url.Action("Index")?agent_id=@Model.AgentId&session=init';
+                        });
+                    },
+                    null);
+            } else if (state === "LOGOUT") {
+
+                var strConfirm =
+                    "[LOGOUT] Please confirm to save warpup and after that it will redirect to search page?";
+
+                ConfirmMessage(strConfirm,
+                    function() {
+                        saveWarpup(function() {
+                            window.location = '@Url.Action("Index")?agent_id=@Model.AgentId&session=init';
+                        });
+                    },
+                    null);
+            } else {
+                var strConfirm = "[" +
+                    state +
+                    "] Please confirm to save warpup and after that it will redirect to search page?";
+
+                ConfirmMessage(strConfirm,
+                    function() {
+                        saveWarpup(function() {
+                            window.location = '@Url.Action("Index")?agent_id=@Model.AgentId&session=init';
+                        });
+                    },
+                    null);
+            }
+        }
+
+        function createVerificationParam() {
+            var resultList = new Array();
+
+            $(".dropdown-toggle-verification-result.btn-success, .dropdown-toggle-verification-result.btn-danger").each(
+                function(a, b) {
+                    if ($(this).hasClass("btn-success") || $(this).hasClass("btn-danger")) {
+                        resultObj = new Object();
+                        resultObj.PurposeId = $("#PurposeId").val();
+                        resultObj.QuestionId = $(this).data("questionid");
+                        if ($(this).hasClass("btn-success")) {
+                            resultObj.Result = "Passed";
+                        } else {
+                            resultObj.Result = "Failed";
+                        }
+                        resultList[resultList.length] = resultObj;
+                    }
+                });
+
+            return $.postify({
+                '_verificationResults': resultList,
+                '_callSession': getCallSession(),
+                '_clientId': getCurrentClientId(),
+                '_customerPhone': getCustomerPhone(),
+                '_agentId': getAgentId()
+            });
+        }
+
+        function lnkBrowseClient_Click() {
+            popupClientSelectionDialog();
+        }
+
+        function lnkLoadOriginalClient_Click() {
+            setCurrentClientId(getOriginalClientId());
+            cbpClientContainer.PerformCallback();
+        }
+
+        function OnAccountPortfolioChange() {
+            var clientId = getCurrentClientId();
+            $("#accountPortfolioListLoading").css("display", "block");
+            popupAccountPortfolioDialog($("#AccountPortfolioList").val(), clientId);
+        }
+
+        function lnkBrowsePortfolio_Click(selectedAccountNo, clientID) {
+            var clientID = getCurrentClientId();
+            popupAccountPortfolioDialog(selectedAccountNo, clientID);
+        }
+
+        function setContainerHighlight(highlightSelector, isInterestContainer) {
+            if (isInterestContainer) {
+
+                $(".show-verification-highlight").removeClass("show-verification-highlight");
+                $(highlightSelector).addClass("show-verification-highlight");
+
+                if (IsNeedToVerify() && IsPassedVerify() === false) {
+
+//                    if ($(highlightSelector).length === 0) {
+//                        NofityWarningMessage(
+//                            "There is no answer of this question.");
+//                    }
+
+                    $(".can-hide").invisible();
+                    $(highlightSelector).visible();
+                }
+
+                _latestHighlightSelector = highlightSelector;
+            }
+
+            var $targetTabPane = $(highlightSelector).closest(".tab-pane");
+            if ($targetTabPane.length > 0) {
+                var tabPaneId = $targetTabPane.attr("id");
+                $(".nav a[href='#" + tabPaneId + "']").tab('show');
+                var parent = $targetTabPane.parent();
+                setContainerHighlight(parent, false);
+            }
+        }
+
+
+        function onClientSelected(clientId, accountNo, product) {
+            $("#selection-dialog").modal('hide');
+            setCurrentClientId(clientId);
+            setCurrentAccountNo(accountNo);
+            setCurrentProduct(product);
+            cbpClientContainer.PerformCallback();
+        }
+
+        // ========== BEGIN Reminder ============
+
+        function OnPurposeChange() {
+            $('#btnSaveVerificationResult').prop('disabled', $("#PurposeId").val() === "");
+
+            if (IsNeedToVerify()) {
+                $("#verify-info").show();
+            } else {
+                $("#verify-info").hide();
+            }
+
+            if ($("#PurposeId").val() !== "" && IsNeedToVerify()) {
+
+                var minPerson = $("#PurposeId option:selected").data("min-pass-person");
+                var minPoa = $("#PurposeId option:selected").data("min-pass-poa");
+
+                if (minPerson > 0 || minPoa > 0) {
+                    var infoMessage = "*** ต้องทำการ verify ";
+                    if (minPerson > 0) {
+                        infoMessage += "คำถามของเจ้าของบัญชีหรือข้อมูลทางบัญชีถูกอย่างน้อย " + minPerson + " ข้อ";
+                    }
+                    if (minPoa > 0) {
+                        infoMessage += "และ ข้อมูลส่วนตัวของ POA ถูกอย่างน้อย " + minPoa + " ข้อ";
+                    }
+                    infoMessage += " ***";
+                    $("#verify-info").text(infoMessage);
+                }
+
+            }
+            cbpVerificationQuestionListContainer.PerformCallback();
+        }
+
+        function popupReminderDialog(_reminderId, isView) {
+            var $dialog = $("#form-dialog");
+            var $container = $(".modal-content", $dialog);
+
+            $.ajax({
+                type: "POST",
+                url: $dialog.data("reminderformurl"),
+                dataType: "json",
+                data: { _reminderId: _reminderId },
+                success: function(result) {
+                    if (!result.valid) {
+                        NofityErrorMessage(result.message);
+                    } else {
+                        $container.html(result.message);
+                        $.validator.unobtrusive.parse($container);
+                        bindDatePickerEvent();
+                        $('form', $container).validateBootstrap();
+
+                        initialNewReminder($container);
+
+                        $dialog.on('hidden.bs.modal',
+                            function(e) {
+                                $container.empty();
+                            });
+
+                        $dialog.modal('show');
+
+                        if (isView) {
+                            setDisableControl($container);
+                        }
+                    }
+                },
+                close: function(event, ui) { $container.empty(); }
+            });
+        }
+
+        function initialNewReminder($container) {
+            $("#CustomerPhone", $container).val(getCustomerPhone());
+            $("#ClientId", $container).val(getCurrentClientId());
+            $("#CallSession", $container).val(getCallSession());
+            $("#AgentId", $container).val(getAgentId());
+        }
+
+        function onSaveReminder(sender) {
+            var $form = $(sender).closest('form');
+
+            if (!$form.valid()) return false;
+
+            $.post($form.attr('action'),
+                $form.serialize(),
+                function(result) {
+                    if (!result.valid) {
+                        NofityErrorMessage(result.message);
+                        return false;
+                    } else {
+                        cbpReminderContainer.PerformCallback();
+                        $("#form-dialog").modal('hide');
+                    }
+                    return true;
+                });
+            return false;
+        }
+
+        function cancelReminder(_reminderId) {
+
+            ConfirmMessage("Please confirm to cancel this item?",
+                function() {
+                    var $dialog = $("#form-dialog");
+                    $.ajax({
+                        type: "POST",
+                        url: $dialog.data("remindercancelurl"),
+                        dataType: "json",
+                        data: { _reminderId: _reminderId, _agentId: getAgentId() },
+                        success: function(result) {
+                            if (!result.valid) {
+                                NofityErrorMessage(result.message);
+                            } else {
+                                cbpReminderContainer.PerformCallback();
+                            }
+                        },
+                        close: function(event, ui) { $container.empty(); }
+                    });
+                },
+                null);
+        }
+
+        function setDisableControl($container) {
+            $("input[type='text']", $container).attr("disabled", "disabled");
+            $("input[type='text']", $container).removeAttr("placeholder");
+            $("textarea", $container).attr("disabled", "disabled");
+        }
+
+        // ========== END Reminder ============
+
+        function popupDrilldownLoginDialog(_userName) {
+            var $dialog = $("#form-dialog");
+            var $container = $(".modal-content", $dialog);
+
+            $.ajax({
+                type: "POST",
+                url: $dialog.data("drilldownusernameurl"),
+                dataType: "json",
+                data: { _userName: _userName },
+                success: function(result) {
+                    if (!result.valid) {
+                        NofityErrorMessage(result.message);
+                    } else {
+                        $container.html(result.message);
+
+                        $dialog.on('hidden.bs.modal',
+                            function(e) {
+                                $container.empty();
+                            });
+                        $.bootstrapSortable(true);
+                        $dialog.modal('show');
+                    }
+                },
+                close: function(event, ui) { $container.empty(); }
+            });
+        }
+
+        function UpdateWrapupMain(reason) {
+            if (self !== top) {
+                parent.postMessage("{\"method\": \"wrapup\", \"msg\": \"" + reason + "\"}", "*");
+                return true;
+            } else {
+                sendMessageToServer("Reason:'" +
+                    reason +
+                    "' is sent but this page is not contained in Gatget in Finesse");
+                return false;
+            }
+
+        }
+
+        function MakeCall(tel) {
+            if (self !== top) {
+                parent.postMessage("{\"method\": \"makecall\", \"msg\": \"" + tel + "\"}", "*");
+            } else {
+                sendMessageToServer("Make call to:'" +
+                    tel +
+                    "' is sent but this page is not contained in Gatget in Finesse");
+            }
+        }
+
+        function IsCalling() {
+            var session = getCallSession() + "X";
+            if (session.substring(0, "init".length) === "init") {
+                return false;
+            }
+            return true;
+        }
+
+
+        function CanChangeStatusToReady() {
+            var session = getCallSession() + "X";
+            if (session.substring(0, "init".length) === "init" ||
+                session.substring(0, "outbound".length) === "outbound") {
+                return false;
+            }
+            return true;
+        }
+
+        function IsOutboundCalling() {
+            var session = getCallSession() + "X";
+            if (session.substring(0, "outbound".length) === "outbound") {
+                return true;
+            }
+            return false;
+        }
+
+        function lnkMissedCall_Click() {
+            window.location = '@Url.Action("MissedCall")?agent_id=' + getAgentId();
+        }
+
+        function IsTalking() {
+            if (self !== top) {
+                var state = $("#state-text", parent.document).html();
+                if (state === "Talking") {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function Finesse_ChangeToReady() {
+            parent.postMessage("{\"method\": \"ready\"}", "*");
+        }
+
+        function Finesse_ChangeToNotReady() {
+            parent.postMessage("{\"method\": \"notready\", \"msg\": \"3\"}", "*");
+        }
+
+        function Finesse_GetState(agentId, callback) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetFinesseUserState")',
+                dataType: "json",
+                data: { _agentId: agentId },
+                beforeSend: function() {
+                    WrapupLoadingPanel.Show();
+                }
+            }).done(function(result) {
+                if (callback) {
+                    callback(result.message);
+                    WrapupLoadingPanel.Hide();
+                }
+            });
+        }
+
+    </script>
+}

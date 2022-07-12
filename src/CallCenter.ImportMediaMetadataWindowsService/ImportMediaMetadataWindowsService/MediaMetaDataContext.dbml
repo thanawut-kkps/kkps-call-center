@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CallCenter" Class="MediaMetaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ptsecmssql3d;Initial Catalog=CallCenter;Integrated Security=True" SettingsObjectName="ImportMediaMetadataWindowsService.Properties.Settings" SettingsPropertyName="CallCenterConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.usp_cc_insert_media_metadata" Method="usp_cc_insert_media_metadata">
+    <Parameter Name="path" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="contact_id" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="first_name" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="last_name" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="group_name" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="team_name" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="calling_number" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="called_number" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="record_datetime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="call_id" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="reason_code" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="extension" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="session" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="account_no" Type="System.String" DbType="VarChar(1024)" />
+    <Parameter Name="remark" Type="System.String" DbType="VarChar(1024)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

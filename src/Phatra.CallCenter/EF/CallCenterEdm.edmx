@@ -1,0 +1,913 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CallCenterModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="CallCenterModelStoreContainer" />
+        <Function Name="usp_cc_get_account_banksettle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_account_info" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="selectacc" Type="varchar" Mode="In" />
+          <Parameter Name="account_type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_account_list" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_account_mf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_account_portfolio_info" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+          <Parameter Name="viewby" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_addrinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_bankingtab_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_cashtran" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+          <Parameter Name="force" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_clientlist_from_phoneno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="phoneno" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_drilldown_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_edividend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_equ_netbuysell" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+          <Parameter Name="force" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_history_wrapup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+          <Parameter Name="call_session" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="selectacc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_mftran" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+          <Parameter Name="force" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_missedcall_list" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_cc_get_POA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_profile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_question_verification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="purpose_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_reminder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+          <Parameter Name="reminder_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_search_client" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search_text" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_wrapup_info" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="call_session" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_cc_get_wrapup_reason" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_cc_save_wrapup_info" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="call_session" Type="varchar" Mode="In" />
+          <Parameter Name="agent_id" Type="varchar" Mode="In" />
+          <Parameter Name="customer_phone" Type="varchar" Mode="In" />
+          <Parameter Name="original_account_no" Type="varchar" Mode="In" />
+          <Parameter Name="original_client_id" Type="decimal" Mode="In" />
+          <Parameter Name="client_id" Type="decimal" Mode="In" />
+          <Parameter Name="account_no" Type="varchar" Mode="In" />
+          <Parameter Name="call_starttime" Type="datetime" Mode="In" />
+          <Parameter Name="wrapup_text" Type="text" Mode="In" />
+          <Parameter Name="wrapup_dateTime" Type="datetime" Mode="In" />
+          <Parameter Name="poa_id" Type="decimal" Mode="In" />
+          <Parameter Name="reason_desc" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ref_get_purpose_verifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_ref_get_todo_services" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CallCenterModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="CallCenterEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_cc_get_profile" ReturnType="Collection(CallCenterModel.CallCenterGetProfileResult)">
+          <Parameter Name="client_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_addrinfo" ReturnType="Collection(CallCenterModel.CallCenterGetAddrInfoResult)">
+          <Parameter Name="client_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_account_list" ReturnType="Collection(CallCenterModel.CallCenterGetAccountListResult)">
+          <Parameter Name="client_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_account_banksettle" ReturnType="Collection(CallCenterModel.CallCenterGetAccountBankSettleResult)">
+          <Parameter Name="account" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_account_info" ReturnType="Collection(CallCenterModel.CallCenterGetAccountInfoResult)">
+            <Parameter Name="selectacc" Mode="In" Type="String" />
+            <Parameter Name="account_type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_account_mf" ReturnType="Collection(CallCenterModel.CallCenterGetAccountMutualFundResult)">
+          <Parameter Name="account" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_cashtran" ReturnType="Collection(CallCenterModel.CallCenterGetCashTranResult)">
+            <Parameter Name="account" Mode="In" Type="String" />
+            <Parameter Name="force" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_edividend" ReturnType="Collection(CallCenterModel.CallCenterGetEdividendResult)">
+          <Parameter Name="account" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_equ_netbuysell" ReturnType="Collection(CallCenterModel.CallCenterGetEquNetBuySellResult)">
+            <Parameter Name="account" Mode="In" Type="String" />
+            <Parameter Name="force" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_mftran" ReturnType="Collection(CallCenterModel.CallCenterGetMfTranResult)">
+            <Parameter Name="account" Mode="In" Type="String" />
+            <Parameter Name="force" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ref_get_purpose_verifications" ReturnType="Collection(CallCenterModel.RefGetPurposeVerificationsResult)" />
+          <FunctionImport Name="usp_cc_get_question_verification" ReturnType="Collection(CallCenterModel.CallCenterGetQuestionVerificationResult)" >
+          <Parameter Name="purpose_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_search_client" ReturnType="Collection(CallCenterModel.CallCenterGetSearchClientResult)">
+          <Parameter Name="search_text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_login" ReturnType="Collection(CallCenterModel.CallCenterGetLoginResult)">
+          <Parameter Name="selectacc" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_drilldown_login" ReturnType="Collection(CallCenterModel.CallCenterGetDrilldownLoginResult)">
+          <Parameter Name="login" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_clientlist_from_phoneno" ReturnType="Collection(CallCenterModel.CallCenterGetClientListFromPhonenoResult)">
+          <Parameter Name="phoneno" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_wrapup_info" ReturnType="Collection(CallCenterModel.CallCenterGetWrapUpInfoResult)">
+          <Parameter Name="call_session" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_reminder" ReturnType="Collection(CallCenterModel.CallCenterGetReminderResult)">
+            <Parameter Name="client_id" Mode="In" Type="Decimal" />
+            <Parameter Name="reminder_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_POA" ReturnType="Collection(CallCenterModel.CallCenterGetPoaResult)">
+          <Parameter Name="client_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_wrapup_reason" ReturnType="Collection(CallCenterModel.CallCenterGetWrapupReasonResult)" />
+          <FunctionImport Name="usp_cc_get_missedcall_list" ReturnType="Collection(CallCenterModel.CallCenterGetMissedCallListResult)" />
+          <FunctionImport Name="usp_cc_get_bankingtab_status" ReturnType="Collection(CallCenterModel.CallCenterGetBankingTabStatusResult)">
+          <Parameter Name="client_id" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_account_portfolio_info" ReturnType="Collection(CallCenterModel.CallCenterGetAccountPortfolioInfoResult)">
+            <Parameter Name="account" Mode="In" Type="String" />
+            <Parameter Name="viewby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_cc_get_history_wrapup" ReturnType="Collection(CallCenterModel.CallCenterGetHistoryWrapUpInfoResult)">
+            <Parameter Name="client_id" Mode="In" Type="Decimal" />
+            <Parameter Name="call_session" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="CallCenterGetProfileResult">
+          <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="pid_type_desc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="client_name_t" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="client_name_e" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="birth_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="nation_code" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="nation_desc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tel_home" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tel_Office" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FatcaStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="addr_mail" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="contact_name_t" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="contact_name_e" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="contact_relationship" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Contact_Tel_Home" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contact_Tel_Office" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contact_Mobile" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="master_poa" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="card_expire_within" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FATCA_Type_Desc" Nullable="true" MaxLength="400" />
+          <Property Type="DateTime" Name="card_expire_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="card_expire_info" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="addr_register" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="SSU_Flag" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="agreement_type" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetAddrInfoResult">
+          <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="addr_seq" Nullable="true" />
+          <Property Type="String" Name="addr_desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="tel_home" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="tel_office" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetAccountListResult">
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="product" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="acc_status" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Joint_Account" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="account_name_t" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="account_name_e" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="suit_level" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetAccountBankSettleResult">
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="buy_pay_type" Nullable="true" />
+          <Property Type="String" Name="buy_pay_type_desc" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="ats_buy_bank_id" Nullable="true" />
+          <Property Type="String" Name="bank_buy_sname" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ATS_Buy_Account_Name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ATS_Buy_Bank_Account" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ATS_Buy_Account_Type" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="ATS_Buy_Branch_ID" Nullable="true" />
+          <Property Type="String" Name="ats_buy_branch_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sell_pay_type_desc" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="ats_sell_bank_id" Nullable="true" />
+          <Property Type="String" Name="bank_sell_sname" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ATS_sell_Account_Name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ATS_sell_Bank_Account" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ATS_sell_Account_Type" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="ATS_sell_Branch_ID" Nullable="true" />
+          <Property Type="String" Name="ats_sell_branch_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="amc_code" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="fund_code" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ATS_Buy_Account_Type_desc" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="sell_pay_type" Nullable="true" />
+          <Property Type="String" Name="ATS_sell_Account_Type_desc" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetAccountInfoResult">
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="account_type" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Joint_Account" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="account_name_t" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="account_name_e" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="fcname_t" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="fcname_e" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="fc_offtel" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email_edoc" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="fax_confirm" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="pid_type_desc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="remark" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="Open_Date" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetAccountMutualFundResult">
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="amc_code" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="holder_id" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="status_id" Nullable="true" />
+          <Property Type="String" Name="status_desc" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="holder_name_t" Nullable="true" MaxLength="450" />
+          <Property Type="String" Name="holder_name_e" Nullable="true" MaxLength="450" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetCashTranResult">
+          <Property Type="String" Name="account" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="tradedate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="sharecodes" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="trandesc" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="amt" Nullable="true" Precision="20" Scale="6" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetEdividendResult">
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="dvd_bank_shortname" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="dvd_bank_account_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="dbd_bank_account_type_desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="dvd_branch_name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetEquNetBuySellResult">
+          <Property Type="String" Name="account" Nullable="false" MaxLength="15" />
+          <Property Type="DateTime" Name="tradedate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="settdate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="net_desc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AssetType" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="client_receive" Nullable="true" Precision="15" Scale="2" />
+          <Property Type="Decimal" Name="client_pay" Nullable="true" Precision="15" Scale="2" />
+          </ComplexType>
+        <ComplexType Name="CallCenterGetMfTranResult">
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="holder_id" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ref_no" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="amc_code" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="fund_code" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="trantype_code" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="tradedate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="amount_unit" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="amount_baht" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="tran_status_id" Nullable="true" />
+          <Property Type="String" Name="tran_status_desc" Nullable="true" MaxLength="24" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetSearchClientResult">
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="product" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="system_code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Joint_Account" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="account_name_t" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="account_name_e" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="trader" Nullable="true" MaxLength="452" />
+          <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetLoginResult">
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="PinStatus" Nullable="true" />
+          <Property Type="String" Name="LoginStatus" Nullable="true" MaxLength="50" />
+          </ComplexType>
+        <ComplexType Name="CallCenterGetDrilldownLoginResult">
+          <Property Type="String" Name="username" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="AccountNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="client_name_t" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="client_name_e" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FrontTypeDesc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CanTrade" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetClientListFromPhonenoResult">
+          <Property Type="String" Name="phoneno" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="pid_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="pid_type_desc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="client_name_t" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="client_name_e" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="birth_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Tel_home" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Tel_Office" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="addr_mail" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="contact_name_t" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="contact_name_e" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="contact_relationship" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Contact_Tel_Home" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contact_Tel_Office" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Contact_Mobile" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetWrapUpInfoResult">
+          <Property Type="String" Name="call_session" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="agent_id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="original_account_no" Nullable="true" MaxLength="15" />
+          <Property Type="Decimal" Name="original_client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="call_starttime" Nullable="false" Precision="23" />
+          <Property Type="String" Name="wrapup_text" Nullable="true" MaxLength="Max" />
+          <Property Type="DateTime" Name="wrapup_dateTime" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="poa_id" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetReminderResult">
+          <Property Type="Int32" Name="reminder_id" Nullable="false" />
+          <Property Type="String" Name="call_session" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="128" />
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="details" Nullable="true" MaxLength="Max" />
+          <Property Type="DateTime" Name="remind_date" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="is_cancelled" Nullable="true" />
+          <Property Type="DateTime" Name="created_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="created_user" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="updated_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="updated_user" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetPoaResult">
+          <Property Type="Decimal" Name="Client_ID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="POA_NameT" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="POA_Pid" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="POA_TelNo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Product_Code" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Account_Type" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Account_NO" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="flag1" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag2" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag3" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag4" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag5" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag6" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag7" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="flag_other" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="doc_completed" Nullable="false" MaxLength="1" />
+          <Property Type="Decimal" Name="poa_id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="POA_NameE" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Relationship" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="RefGetPurposeVerificationsResult">
+          <Property Type="Int32" Name="purpose_id" Nullable="false" />
+          <Property Type="String" Name="purpose_desc" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="min_ask_quest" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="updated_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="updated_by" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="min_pass_person_quest" Nullable="true" />
+          <Property Type="Int32" Name="min_pass_poa_quest" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetQuestionVerificationResult">
+          <Property Type="Int32" Name="purpose_id" Nullable="false" />
+          <Property Type="Int32" Name="question_id" Nullable="false" />
+          <Property Type="Int32" Name="Seqno" Nullable="false" />
+          <Property Type="String" Name="question_detail" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="map_to_html" Nullable="true" MaxLength="Max" />
+          <Property Type="Boolean" Name="Must_ask" Nullable="false" />
+          <Property Type="String" Name="IsPoaQuestion" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetWrapupReasonResult">
+          <Property Type="String" Name="reason_code" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="reason_desc" Nullable="false" MaxLength="1024" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetMissedCallListResult">
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="priority" Nullable="true" />
+          <Property Type="String" Name="customer_name" Nullable="false" MaxLength="221" />
+          <Property Type="DateTime" Name="call_start_time" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetBankingTabStatusResult">
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="GUIDStatus" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="reason" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ConsentStatus" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetAccountPortfolioInfoResult">
+          <Property Type="String" Name="account" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="turnoveracc" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="asset_lib" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="viewby" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="grpord" Nullable="true" />
+          <Property Type="String" Name="grpname" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="classord" Nullable="true" />
+          <Property Type="String" Name="classcode" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="classdesc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="subgrp1" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="grp1ord" Nullable="true" />
+          <Property Type="DateTime" Name="posdate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="porttype" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="desk" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="AType" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="amc_code" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ShareCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ShareCodes" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="cUnitBal" Nullable="true" Precision="20" Scale="6" />
+          <Property Type="Double" Name="cavgcost" Nullable="true" />
+          <Property Type="Decimal" Name="ctotcost" Nullable="true" Precision="24" Scale="6" />
+          <Property Type="Decimal" Name="mktprice" Nullable="true" Precision="20" Scale="4" />
+          <Property Type="Decimal" Name="mktvalue" Nullable="true" Precision="32" Scale="2" />
+          <Property Type="Decimal" Name="ugl" Nullable="true" Precision="32" Scale="2" />
+          <Property Type="Decimal" Name="ugl_pct" Nullable="true" Precision="32" Scale="2" />
+          <Property Type="Decimal" Name="totmkt" Nullable="true" Precision="32" Scale="2" />
+          <Property Type="Decimal" Name="weight_pct" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="flag" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="no_dec" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CallCenterGetHistoryWrapUpInfoResult" >
+          <Property Type="String" Name="call_session" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="agent_id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="customer_phone" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="original_account_no" Nullable="true" MaxLength="15" />
+          <Property Type="Decimal" Name="original_client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="client_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="account_no" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="call_starttime" Nullable="false" Precision="23" />
+          <Property Type="String" Name="wrapup_text" Nullable="true" MaxLength="Max" />
+          <Property Type="DateTime" Name="wrapup_dateTime" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="poa_id" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="reason_desc" Nullable="true" MaxLength="1024" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CallCenterModelStoreContainer" CdmEntityContainer="CallCenterEntities" >
+          <FunctionImportMapping FunctionImportName="usp_cc_get_profile" FunctionName="CallCenterModel.Store.usp_cc_get_profile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetProfileResult">
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+                <ScalarProperty Name="pid_type_desc" ColumnName="pid_type_desc" />
+                <ScalarProperty Name="client_name_t" ColumnName="client_name_t" />
+                <ScalarProperty Name="client_name_e" ColumnName="client_name_e" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="nation_code" ColumnName="nation_code" />
+                <ScalarProperty Name="nation_desc" ColumnName="nation_desc" />
+                <ScalarProperty Name="Tel_home" ColumnName="Tel_home" />
+                <ScalarProperty Name="Tel_Office" ColumnName="Tel_Office" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="FatcaStatus" ColumnName="FatcaStatus" />
+                <ScalarProperty Name="addr_mail" ColumnName="addr_mail" />
+                <ScalarProperty Name="contact_name_t" ColumnName="contact_name_t" />
+                <ScalarProperty Name="contact_name_e" ColumnName="contact_name_e" />
+                <ScalarProperty Name="contact_relationship" ColumnName="contact_relationship" />
+                <ScalarProperty Name="Contact_Tel_Home" ColumnName="Contact_Tel_Home" />
+                <ScalarProperty Name="Contact_Tel_Office" ColumnName="Contact_Tel_Office" />
+                <ScalarProperty Name="Contact_Mobile" ColumnName="Contact_Mobile" />
+                <ScalarProperty Name="master_poa" ColumnName="master_poa" />
+                <ScalarProperty Name="card_expire_within" ColumnName="card_expire_within" />
+                <ScalarProperty Name="FATCA_Type_Desc" ColumnName="FATCA_Type_Desc" />
+                <ScalarProperty Name="card_expire_date" ColumnName="card_expire_date" />
+                <ScalarProperty Name="card_expire_info" ColumnName="card_expire_info" />
+                <ScalarProperty Name="addr_register" ColumnName="addr_register" />
+                <ScalarProperty Name="SSU_Flag" ColumnName="SSU_Flag" />
+                <ScalarProperty Name="agreement_type" ColumnName="agreement_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_addrinfo" FunctionName="CallCenterModel.Store.usp_cc_get_addrinfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetAddrInfoResult">
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+                <ScalarProperty Name="addr_seq" ColumnName="addr_seq" />
+                <ScalarProperty Name="addr_desc" ColumnName="addr_desc" />
+                <ScalarProperty Name="tel_home" ColumnName="tel_home" />
+                <ScalarProperty Name="tel_office" ColumnName="tel_office" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_account_list" FunctionName="CallCenterModel.Store.usp_cc_get_account_list">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetAccountListResult">
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="acc_status" ColumnName="acc_status" />
+                <ScalarProperty Name="Joint_Account" ColumnName="Joint_Account" />
+                <ScalarProperty Name="account_name_t" ColumnName="account_name_t" />
+                <ScalarProperty Name="account_name_e" ColumnName="account_name_e" />
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+                <ScalarProperty Name="suit_level" ColumnName="suit_level" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_account_banksettle" FunctionName="CallCenterModel.Store.usp_cc_get_account_banksettle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetAccountBankSettleResult">
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="buy_pay_type" ColumnName="buy_pay_type" />
+                <ScalarProperty Name="buy_pay_type_desc" ColumnName="buy_pay_type_desc" />
+                <ScalarProperty Name="ats_buy_bank_id" ColumnName="ats_buy_bank_id" />
+                <ScalarProperty Name="bank_buy_sname" ColumnName="bank_buy_sname" />
+                <ScalarProperty Name="ATS_Buy_Account_Name" ColumnName="ATS_Buy_Account_Name" />
+                <ScalarProperty Name="ATS_Buy_Bank_Account" ColumnName="ATS_Buy_Bank_Account" />
+                <ScalarProperty Name="ATS_Buy_Account_Type" ColumnName="ATS_Buy_Account_Type" />
+                <ScalarProperty Name="ATS_Buy_Branch_ID" ColumnName="ATS_Buy_Branch_ID" />
+                <ScalarProperty Name="ats_buy_branch_name" ColumnName="ats_buy_branch_name" />
+                <ScalarProperty Name="sell_pay_type_desc" ColumnName="sell_pay_type_desc" />
+                <ScalarProperty Name="ats_sell_bank_id" ColumnName="ats_sell_bank_id" />
+                <ScalarProperty Name="bank_sell_sname" ColumnName="bank_sell_sname" />
+                <ScalarProperty Name="ATS_sell_Account_Name" ColumnName="ATS_sell_Account_Name" />
+                <ScalarProperty Name="ATS_sell_Bank_Account" ColumnName="ATS_sell_Bank_Account" />
+                <ScalarProperty Name="ATS_sell_Account_Type" ColumnName="ATS_sell_Account_Type" />
+                <ScalarProperty Name="ATS_sell_Branch_ID" ColumnName="ATS_sell_Branch_ID" />
+                <ScalarProperty Name="ats_sell_branch_name" ColumnName="ats_sell_branch_name" />
+                <ScalarProperty Name="amc_code" ColumnName="amc_code" />
+                <ScalarProperty Name="fund_code" ColumnName="fund_code" />
+                <ScalarProperty Name="ATS_Buy_Account_Type_desc" ColumnName="ATS_Buy_Account_Type_desc" />
+                <ScalarProperty Name="sell_pay_type" ColumnName="sell_pay_type" />
+                <ScalarProperty Name="ATS_sell_Account_Type_desc" ColumnName="ATS_sell_Account_Type_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_account_info" FunctionName="CallCenterModel.Store.usp_cc_get_account_info">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetAccountInfoResult">
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="account_type" ColumnName="account_type" />
+                <ScalarProperty Name="Joint_Account" ColumnName="Joint_Account" />
+                <ScalarProperty Name="account_name_t" ColumnName="account_name_t" />
+                <ScalarProperty Name="account_name_e" ColumnName="account_name_e" />
+                <ScalarProperty Name="fcname_t" ColumnName="fcname_t" />
+                <ScalarProperty Name="fcname_e" ColumnName="fcname_e" />
+                <ScalarProperty Name="fc_offtel" ColumnName="fc_offtel" />
+                <ScalarProperty Name="email_edoc" ColumnName="email_edoc" />
+                <ScalarProperty Name="fax_confirm" ColumnName="fax_confirm" />
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+                <ScalarProperty Name="pid_type_desc" ColumnName="pid_type_desc" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Open_Date" ColumnName="Open_Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_account_mf" FunctionName="CallCenterModel.Store.usp_cc_get_account_mf">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetAccountMutualFundResult">
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="amc_code" ColumnName="amc_code" />
+                <ScalarProperty Name="holder_id" ColumnName="holder_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="status_desc" ColumnName="status_desc" />
+                <ScalarProperty Name="holder_name_t" ColumnName="holder_name_t" />
+                <ScalarProperty Name="holder_name_e" ColumnName="holder_name_e" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_cashtran" FunctionName="CallCenterModel.Store.usp_cc_get_cashtran">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetCashTranResult">
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="tradedate" ColumnName="tradedate" />
+                <ScalarProperty Name="sharecodes" ColumnName="sharecodes" />
+                <ScalarProperty Name="trandesc" ColumnName="trandesc" />
+                <ScalarProperty Name="amt" ColumnName="amt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_edividend" FunctionName="CallCenterModel.Store.usp_cc_get_edividend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetEdividendResult">
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="dvd_bank_shortname" ColumnName="dvd_bank_shortname" />
+                <ScalarProperty Name="dvd_bank_account_no" ColumnName="dvd_bank_account_no" />
+                <ScalarProperty Name="dbd_bank_account_type_desc" ColumnName="dbd_bank_account_type_desc" />
+                <ScalarProperty Name="dvd_branch_name" ColumnName="dvd_branch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_equ_netbuysell" FunctionName="CallCenterModel.Store.usp_cc_get_equ_netbuysell">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetEquNetBuySellResult">
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="tradedate" ColumnName="tradedate" />
+                <ScalarProperty Name="settdate" ColumnName="settdate" />
+                <ScalarProperty Name="net_desc" ColumnName="net_desc" />
+                <ScalarProperty Name="AssetType" ColumnName="AssetType" />
+                <ScalarProperty Name="client_receive" ColumnName="client_receive" />
+                <ScalarProperty Name="client_pay" ColumnName="client_pay" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_mftran" FunctionName="CallCenterModel.Store.usp_cc_get_mftran">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetMfTranResult">
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="holder_id" ColumnName="holder_id" />
+                <ScalarProperty Name="ref_no" ColumnName="ref_no" />
+                <ScalarProperty Name="amc_code" ColumnName="amc_code" />
+                <ScalarProperty Name="fund_code" ColumnName="fund_code" />
+                <ScalarProperty Name="trantype_code" ColumnName="trantype_code" />
+                <ScalarProperty Name="tradedate" ColumnName="tradedate" />
+                <ScalarProperty Name="amount_unit" ColumnName="amount_unit" />
+                <ScalarProperty Name="amount_baht" ColumnName="amount_baht" />
+                <ScalarProperty Name="tran_status_id" ColumnName="tran_status_id" />
+                <ScalarProperty Name="tran_status_desc" ColumnName="tran_status_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ref_get_purpose_verifications" FunctionName="CallCenterModel.Store.usp_ref_get_purpose_verifications">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.RefGetPurposeVerificationsResult">
+                <ScalarProperty Name="purpose_id" ColumnName="purpose_id" />
+                <ScalarProperty Name="purpose_desc" ColumnName="purpose_desc" />
+                <ScalarProperty Name="min_ask_quest" ColumnName="min_ask_quest" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="min_pass_person_quest" ColumnName="min_pass_person_quest" />
+                <ScalarProperty Name="min_pass_poa_quest" ColumnName="min_pass_poa_quest" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_question_verification" FunctionName="CallCenterModel.Store.usp_cc_get_question_verification">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetQuestionVerificationResult">
+                <ScalarProperty Name="purpose_id" ColumnName="purpose_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="Seqno" ColumnName="Seqno" />
+                <ScalarProperty Name="question_detail" ColumnName="question_detail" />
+                <ScalarProperty Name="map_to_html" ColumnName="map_to_html" />
+                <ScalarProperty Name="Must_ask" ColumnName="Must_ask" />
+                <ScalarProperty Name="IsPoaQuestion" ColumnName="IsPoaQuestion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_search_client" FunctionName="CallCenterModel.Store.usp_cc_get_search_client">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetSearchClientResult">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+                <ScalarProperty Name="Joint_Account" ColumnName="Joint_Account" />
+                <ScalarProperty Name="account_name_t" ColumnName="account_name_t" />
+                <ScalarProperty Name="account_name_e" ColumnName="account_name_e" />
+                <ScalarProperty Name="trader" ColumnName="trader" />
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_login" FunctionName="CallCenterModel.Store.usp_cc_get_login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetLoginResult">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PinStatus" ColumnName="PinStatus" />
+                <ScalarProperty Name="LoginStatus" ColumnName="LoginStatus" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_drilldown_login" FunctionName="CallCenterModel.Store.usp_cc_get_drilldown_login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetDrilldownLoginResult">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+                <ScalarProperty Name="client_name_t" ColumnName="client_name_t" />
+                <ScalarProperty Name="client_name_e" ColumnName="client_name_e" />
+                <ScalarProperty Name="FrontTypeDesc" ColumnName="FrontTypeDesc" />
+                <ScalarProperty Name="CanTrade" ColumnName="CanTrade" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_clientlist_from_phoneno" FunctionName="CallCenterModel.Store.usp_cc_get_clientlist_from_phoneno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetClientListFromPhonenoResult">
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="pid_no" ColumnName="pid_no" />
+                <ScalarProperty Name="pid_type_desc" ColumnName="pid_type_desc" />
+                <ScalarProperty Name="client_name_t" ColumnName="client_name_t" />
+                <ScalarProperty Name="client_name_e" ColumnName="client_name_e" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="Tel_home" ColumnName="Tel_home" />
+                <ScalarProperty Name="Tel_Office" ColumnName="Tel_Office" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="addr_mail" ColumnName="addr_mail" />
+                <ScalarProperty Name="contact_name_t" ColumnName="contact_name_t" />
+                <ScalarProperty Name="contact_name_e" ColumnName="contact_name_e" />
+                <ScalarProperty Name="contact_relationship" ColumnName="contact_relationship" />
+                <ScalarProperty Name="Contact_Tel_Home" ColumnName="Contact_Tel_Home" />
+                <ScalarProperty Name="Contact_Tel_Office" ColumnName="Contact_Tel_Office" />
+                <ScalarProperty Name="Contact_Mobile" ColumnName="Contact_Mobile" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_wrapup_info" FunctionName="CallCenterModel.Store.usp_cc_get_wrapup_info">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetWrapUpInfoResult">
+                <ScalarProperty Name="call_session" ColumnName="call_session" />
+                <ScalarProperty Name="agent_id" ColumnName="agent_id" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="original_account_no" ColumnName="original_account_no" />
+                <ScalarProperty Name="original_client_id" ColumnName="original_client_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="call_starttime" ColumnName="call_starttime" />
+                <ScalarProperty Name="wrapup_text" ColumnName="wrapup_text" />
+                <ScalarProperty Name="wrapup_dateTime" ColumnName="wrapup_dateTime" />
+                <ScalarProperty Name="poa_id" ColumnName="poa_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_reminder" FunctionName="CallCenterModel.Store.usp_cc_get_reminder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetReminderResult">
+                <ScalarProperty Name="reminder_id" ColumnName="reminder_id" />
+                <ScalarProperty Name="call_session" ColumnName="call_session" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="remind_date" ColumnName="remind_date" />
+                <ScalarProperty Name="is_cancelled" ColumnName="is_cancelled" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_user" ColumnName="created_user" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="updated_user" ColumnName="updated_user" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_POA" FunctionName="CallCenterModel.Store.usp_cc_get_POA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetPoaResult">
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="POA_NameT" ColumnName="POA_NameT" />
+                <ScalarProperty Name="POA_Pid" ColumnName="POA_Pid" />
+                <ScalarProperty Name="POA_TelNo" ColumnName="POA_TelNo" />
+                <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+                <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
+                <ScalarProperty Name="Account_NO" ColumnName="Account_NO" />
+                <ScalarProperty Name="flag1" ColumnName="flag1" />
+                <ScalarProperty Name="flag2" ColumnName="flag2" />
+                <ScalarProperty Name="flag3" ColumnName="flag3" />
+                <ScalarProperty Name="flag4" ColumnName="flag4" />
+                <ScalarProperty Name="flag5" ColumnName="flag5" />
+                <ScalarProperty Name="flag6" ColumnName="flag6" />
+                <ScalarProperty Name="flag7" ColumnName="flag7" />
+                <ScalarProperty Name="flag_other" ColumnName="flag_other" />
+                <ScalarProperty Name="doc_completed" ColumnName="doc_completed" />
+                <ScalarProperty Name="poa_id" ColumnName="poa_id" />
+                <ScalarProperty Name="POA_NameE" ColumnName="POA_NameE" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_wrapup_reason" FunctionName="CallCenterModel.Store.usp_cc_get_wrapup_reason">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetWrapupReasonResult">
+                <ScalarProperty Name="reason_code" ColumnName="reason_code" />
+                <ScalarProperty Name="reason_desc" ColumnName="reason_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_missedcall_list" FunctionName="CallCenterModel.Store.usp_cc_get_missedcall_list">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetMissedCallListResult">
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="call_start_time" ColumnName="call_start_time" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_bankingtab_status" FunctionName="CallCenterModel.Store.usp_cc_get_bankingtab_status">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetBankingTabStatusResult">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="GUIDStatus" ColumnName="GUIDStatus" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="ConsentStatus" ColumnName="ConsentStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_account_portfolio_info" FunctionName="CallCenterModel.Store.usp_cc_get_account_portfolio_info">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetAccountPortfolioInfoResult">
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="turnoveracc" ColumnName="turnoveracc" />
+                <ScalarProperty Name="asset_lib" ColumnName="asset_lib" />
+                <ScalarProperty Name="viewby" ColumnName="viewby" />
+                <ScalarProperty Name="grpord" ColumnName="grpord" />
+                <ScalarProperty Name="grpname" ColumnName="grpname" />
+                <ScalarProperty Name="classord" ColumnName="classord" />
+                <ScalarProperty Name="classcode" ColumnName="classcode" />
+                <ScalarProperty Name="classdesc" ColumnName="classdesc" />
+                <ScalarProperty Name="subgrp1" ColumnName="subgrp1" />
+                <ScalarProperty Name="grp1ord" ColumnName="grp1ord" />
+                <ScalarProperty Name="posdate" ColumnName="posdate" />
+                <ScalarProperty Name="porttype" ColumnName="porttype" />
+                <ScalarProperty Name="desk" ColumnName="desk" />
+                <ScalarProperty Name="AType" ColumnName="AType" />
+                <ScalarProperty Name="amc_code" ColumnName="amc_code" />
+                <ScalarProperty Name="ShareCode" ColumnName="ShareCode" />
+                <ScalarProperty Name="ShareCodes" ColumnName="ShareCodes" />
+                <ScalarProperty Name="cUnitBal" ColumnName="cUnitBal" />
+                <ScalarProperty Name="cavgcost" ColumnName="cavgcost" />
+                <ScalarProperty Name="ctotcost" ColumnName="ctotcost" />
+                <ScalarProperty Name="mktprice" ColumnName="mktprice" />
+                <ScalarProperty Name="mktvalue" ColumnName="mktvalue" />
+                <ScalarProperty Name="ugl" ColumnName="ugl" />
+                <ScalarProperty Name="ugl_pct" ColumnName="ugl_pct" />
+                <ScalarProperty Name="totmkt" ColumnName="totmkt" />
+                <ScalarProperty Name="weight_pct" ColumnName="weight_pct" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="no_dec" ColumnName="no_dec" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_cc_get_history_wrapup" FunctionName="CallCenterModel.Store.usp_cc_get_history_wrapup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallCenterModel.CallCenterGetHistoryWrapUpInfoResult">
+                <ScalarProperty Name="call_session" ColumnName="call_session" />
+                <ScalarProperty Name="agent_id" ColumnName="agent_id" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="original_account_no" ColumnName="original_account_no" />
+                <ScalarProperty Name="original_client_id" ColumnName="original_client_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="call_starttime" ColumnName="call_starttime" />
+                <ScalarProperty Name="wrapup_text" ColumnName="wrapup_text" />
+                <ScalarProperty Name="wrapup_dateTime" ColumnName="wrapup_dateTime" />
+                <ScalarProperty Name="poa_id" ColumnName="poa_id" />
+                <ScalarProperty Name="reason_desc" ColumnName="reason_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CallCenterEdm" />
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

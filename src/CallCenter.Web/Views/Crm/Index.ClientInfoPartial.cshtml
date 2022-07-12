@@ -1,0 +1,50 @@
+﻿@model CallCenter.Web.ViewModels.ClientInfoViewModel
+<div class="panel-gadget" style="min-height: 500px">
+    <div class="panel-gadget-header">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;Client
+        Info
+    </div>
+    <div class="panel-gadget-header-right">
+        @if (Model.OriginalClientId.HasValue && Model.OriginalClientId.Value != -1m && Model.OriginalClientId.Value != Model.ClientId)
+        {
+            <a href="javascript:void(0);" onclick="lnkLoadOriginalClient_Click()"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>&nbsp;&nbsp;Load Original Client</a>
+        }        
+       &nbsp;&nbsp<a href="javascript:void(0);" onclick="lnkBrowseClient_Click()"><i class="fa fa-binoculars"></i>&nbsp;&nbsp;Search Client</a>
+    </div>
+    <div class="panel-gadget-detail" style="padding-left: 10px;">
+        <div class="nopadding">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#profile-tab" aria-controls="profile-tab"
+                        role="tab" data-toggle="tab">Profile</a></li>
+                    <li role="presentation"><a href="#poa-tab" aria-controls="poa-tab" role="tab" data-toggle="tab">
+                       POA</a></li>
+                    <li role="presentation"><a href="#kk-ebanking-tab" aria-controls="kk-ebanking-tab" role="tab" data-toggle="tab">
+                       KK e-Banking</a></li>
+                </ul>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="profile-tab">
+                    <div style="padding-left: 10px; padding-top: 15px;">
+                        @Html.Partial("Index.ProfilePartial", Model.ProfileResult)
+                        @Html.Partial("Index.ContactInformationPartial", Model)
+                        @Html.Partial("Index.ContactPersonPartial", Model.ProfileResult)
+                        <div class="row nomargin">
+                            <div class="nopadding">
+                                @Html.Partial("Index.AccountListPartial", Model.AccountResults)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="poa-tab">
+                    @Html.Partial("Index.PoaPartial", Model.PoaResults)                    
+                </div>
+                <div role="tabpanel" class="tab-pane" id="kk-ebanking-tab">
+                    @Html.Partial("Index.KkEbankingPartial", Model.BankingTabStatusResult)             
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿@model AccountInfoViewModel
+
+<div class="row nomargin can-hide">
+    <div class="col-md-12 nopadding">
+        <div class="panel-gadget" style="min-height: 800px">
+            <div class="panel-gadget-header">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;Account Information
+            </div>
+            <div class="panel-gadget-header-right can-hide-value">
+                &nbsp;&nbsp<a href="javascript:void(0);" onclick="lnkBrowsePortfolio_Click('@Model.AccountInfoResult.AccountNo')"><i class="fa fa-line-chart"></i>&nbsp;&nbsp;Portfolio</a>
+            </div>
+            <div class="panel-gadget-detail can-hide" style="padding-left: 10px;">
+                <div class="row nomargin row-detail">
+                    <div class="col-md-2 nopadding">
+                        <strong>Account No</strong>
+                    </div>
+                    <div class="col-md-4 nopadding">
+                        @Model.AccountInfoResult.AccountNo
+                    </div>
+                    <div class="col-md-2 nopadding">
+                        <strong>Account Name</strong>
+                    </div>
+                    <div class="col-md-4 nopadding">
+                        @Model.AccountInfoResult.AccountNameT
+                    </div>
+                </div>
+                <div class="row nomargin row-detail">
+                    <div class="col-md-2 nopadding">
+                        <strong>Account Owner</strong>
+                    </div>
+                    <div class="col-md-4 nopadding">
+                        @Model.AccountInfoResult.FcnameE @Model.AccountInfoResult.FcOfftel
+                    </div>
+                    <div class="col-md-2 nopadding">
+                        <strong>Open Date</strong>
+                    </div>
+                    <div class="col-md-4 nopadding">
+                        @(Model.AccountInfoResult.OpenDate.HasValue ? Model.AccountInfoResult.OpenDate.Value.ToString("d MMMM yyyy") : "N/A")
+                    </div>
+                </div>
+                <div class="row nomargin row-detail">
+                    <div class="col-md-2 nopadding">
+                        <strong>Email</strong>
+                    </div>
+                    <div class="col-md-10 nopadding verify-email">
+                        @Model.AccountInfoResult.Email &nbsp;
+                    </div>
+                </div>
+                <div class="row nomargin row-detail">
+                    <div class="col-md-2 nopadding can-hide-label">
+                        <strong>Email for E-Doc</strong>
+                    </div>
+                    <div class="col-md-10 nopadding verify-email-edoc can-hide-value">
+                        @Model.AccountInfoResult.EmailEdoc &nbsp;
+                    </div>
+                </div>
+                <div class="row nomargin row-detail">
+                    <div class="col-md-2 nopadding can-hide-label">
+                        <strong>Fax Confirmation</strong>
+                    </div>
+                    <div class="col-md-10 nopadding can-hide-value">
+                        @Model.AccountInfoResult.FaxConfirm &nbsp;
+                    </div>
+                </div>
+                <div class="row nomargin row-detail">
+                    <div class="col-md-2 nopadding can-hide-label">
+                        <strong>Remark</strong>
+                    </div>
+                    <div class="col-md-10 nopadding can-hide-value">
+                            @if (Model.AccountInfoResult != null && !string.IsNullOrWhiteSpace(Model.AccountInfoResult.Remark))
+                            {
+                                var idx = Model.AccountInfoResult.Remark.IndexOf(System.Environment.NewLine);
+                                string displayRemark = string.Empty;
+
+                                if (Model.AccountInfoResult.Remark.Length > 100)
+                                {
+                                    displayRemark = Model.AccountInfoResult.Remark.Substring(0, 100) + "...";
+                                }
+                                else
+                                {
+                                    displayRemark = Model.AccountInfoResult.Remark;
+                                }
+                                <div class="text-ellipsis"><a href="#" data-placement="bottom" data-html="true" data-toggle="tooltip" title='@Html.Raw((Model.AccountInfoResult.Remark ?? "").Replace(System.Environment.NewLine, "<br />"))'>@displayRemark</a>
+                                </div>
+                            }        
+                    </div>
+                </div>
+                <div class="row nomargin">
+                    <div class="col-md-12 nopadding">
+                        @Html.Partial("Index.UserNameListPartial", Model.LoginResults)
+                    </div>
+                </div>
+                <div class="row nomargin space-above">
+                    <div class="nopadding">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active can-hide-label"><a href="#settlement-info" aria-controls="settlement-info"
+                                    role="tab" data-toggle="tab">Settlement Information</a></li>
+                                <li role="presentation" class="can-hide-label"><a href="#mutualfund-info" aria-controls="mutualfund-info"
+                                    role="tab" data-toggle="tab">Mutual Fund Account Info</a></li>
+                            </ul>
+                        </div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="settlement-info">
+                                @Html.Partial("Index.SettlementInformationPartial", Model.BankSettlementResult)
+                                <br />
+                                @Html.Partial("Index.EDividendPartial", Model.EdividendResult)
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="mutualfund-info">
+                                @Html.Partial("Index.MutualFundListPartial", Model.MutualFundResults)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bs-docs-example noborder space-above">
+                <div class="bs-docs-example-header">
+                    <i class="fa fa-star"></i>&nbsp;&nbsp;Trading Activities
+                </div>
+                <div class="row nomargin" style="padding-left: 10px;">
+                    <div class="nopadding">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="active"><a href="#cash-collateral-activity" aria-controls="cash-collateral-activity"
+                                    role="tab" data-toggle="tab">Cash Collateral Last 5 days</a></li>
+                                <li role="presentation"><a href="#equity-activity" aria-controls="equity-activity"
+                                    role="tab" data-toggle="tab">Equity Last 3 days</a></li>
+                                <li role="presentation"><a href="#mutualfund-activity" aria-controls="mutualfund-activity"
+                                    role="tab" data-toggle="tab">Mutual Fund Last 2 days</a></li>
+                            </ul>
+                        </div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="cash-collateral-activity">
+                                @Html.Partial("Index.CashTransactionPartial", Model.CashTranResults)
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="equity-activity">
+                                @Html.Partial("Index.EquityNetBuySellPartial", Model.EquNetBuySellResults)
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="mutualfund-activity">
+                                @Html.Partial("Index.MfTranPartial", Model.MfTranResults)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

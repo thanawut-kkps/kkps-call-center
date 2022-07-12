@@ -1,0 +1,84 @@
+﻿@using System.Collections
+@model VerificationViewModel
+@{
+    string col1 = "4";
+    string col2 = "4";
+    string col3 = "4";
+
+    var purposeList = (List<RefGetPurposeVerificationsResult>)ViewData["PurposeList"];
+}
+@using (Html.BeginForm("SaveVerificationResult", "Crm", FormMethod.Post))
+{
+    <div class="form-inline">
+        <div class="form-group">
+            @Html.LabelFor(m => m.PurposeId)
+            <select class="form-control valid" data-val="true"
+                    data-val-number="The field Purpose must be a number."
+                    data-val-required="Purpose is required."
+                    id="@Html.IdFor(m => m.PurposeId)" name="@Html.IdFor(m => m.PurposeId)"
+                    onchange="OnPurposeChange()">
+                <option value="">No need to verify </option>
+                @foreach (var p in purposeList.ToArray())
+                {
+                    <option value="@p.PurposeId" data-min-pass-person="@p.MinPassPersonQuest" data-min-pass-poa="@p.MinPassPoaQuest"  @(p.PurposeId == Model.PurposeId ? "selected" : "")>
+                        @p.PurposeDesc
+                    </option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.PurposeId)
+        </div>
+        <div class="form-group" style="float: right;">
+            <button type="button" class="btn btn-primary" id="btnSaveVerificationResult">
+                Save Result</button>
+        </div>
+    </div> 
+    <div class="form-inline text-center" id="verify-info-container" style="display: none;">
+        <div class="form-group alert alert-info" style="padding: 5px;" id="verify-info"></div>
+        <div class="form-group label label-warning" id="lblNotVerified">Not Verified</div>
+        <div class="form-group label label-success" id="lblPassedVerifying">Passed Verifying</div>
+        <div class="form-group label label-danger" id="lblFailedVerifying">Failed Verifying</div>
+    </div>
+    <div class="form-group" style="margin-top: -5px;">
+        @Html.Action("IndexVerificationQuestionListCallbackPanelPartial", new { _purposeId = Model.PurposeId })
+    </div>
+}
+@*<div>
+    <div class="row nomargin">
+        <div class="col-md-@col1 nopadding">
+            Mutual Fund Question</div>
+        <div class="col-md-@col2 nopadding">
+        </div>
+        <div class="col-md-@col3 nopadding text-right">
+            <a href="javascript:void(0);" class="verification-view-answer" onclick="setContainerHighlight($('#mutualFundInfoContainer'), true);">
+                View Answer</a></div>
+    </div>
+    <div class="row nomargin">
+        <div class="col-md-@col1 nopadding">
+            Verification Content
+        </div>
+        <div class="col-md-@col2 nopadding">
+        </div>
+        <div class="col-md-@col3 nopadding text-right">
+            <a href="javascript:void(0);" class="verification-view-answer" onclick="setContainerHighlight($('#verification-list'), true);">
+                View Answer</a></div>
+    </div>
+    <div class="row nomargin">
+        <div class="col-md-@col1 nopadding">
+            PID Question</div>
+        <div class="col-md-@col2 nopadding">
+        </div>
+        <div class="col-md-@col3 nopadding text-right">
+            <a href="javascript:void(0);" class="verification-view-answer" onclick="setContainerHighlight($('#profile-pidno'), true);">
+                View Answer</a></div>
+    </div>
+    <div class="row nomargin">
+        <div class="col-md-@col1 nopadding">
+            Verification Content
+        </div>
+        <div class="col-md-@col2 nopadding">
+        </div>
+        <div class="col-md-@col3 nopadding text-right">
+            <a href="javascript:void(0);" class="verification-view-answer" onclick="setContainerHighlight($('#verification-list'), true);">
+                View Answer</a></div>
+    </div>
+</div>*@ 

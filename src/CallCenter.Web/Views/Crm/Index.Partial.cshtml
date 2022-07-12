@@ -1,0 +1,29 @@
+﻿@model CallCenter.Web.ViewModels.ClientInfoViewModel
+<div class="row nomargin" id="current-client-data"
+    data-clientid='@Model.ClientId'
+    data-accountno='@Model.AccountNo'
+    data-product='@Model.Product'>
+    <div class="col-md-6 nopadding">
+        <div class="row nomargin">
+            <div class="col-md-12 nopadding">
+                @Html.Partial("Index.NotePartial", Model)
+            </div>
+        </div>
+        <div class="row nomargin">
+            <div class="col-md-12 nopadding">
+                @Html.Action("IndexClientInfoPartial", new { _originalClientId = Model.OriginalClientId, _clientId = Model.ClientId, _accountNo = Model.AccountNo, _product = Model.Product })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 nopadding">
+        <div class="row nomargin">
+            <div class="col-md-12 nopadding">
+                @Html.Action("IndexAccountInfoContainerPartial", new
+                         {
+                             _accountNo = Model.AccountNo, 
+                             _accountType = Model.Product 
+                         })
+            </div>
+        </div>
+    </div>
+</div>

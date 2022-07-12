@@ -1,0 +1,14 @@
+﻿@model string
+<div class="row nomargin">
+    <div class="col-md-5 nopadding">
+        <input type="text" id="searchText" class="form-control" placeholder="Account No./ชื่อ/นามสกุล/PID" onkeyup="clickButtonWhenEnter(event, $('#btnSearchClient'))" value="@Model" /> (Account No./ชื่อ/นามสกุล/PID)
+    </div>
+    <div class="col-md-7 nopadding">
+        <button type="button" id="btnSearchClient"  class="btn btn-primary">Search</button> 
+    </div>
+</div>
+<div class="row nomargin space-above">
+    <div class="col-md-12 nopadding">
+        @Html.Action("SearchClientCallbackPanelResultPartial", new { _searchText = Model })
+    </div>
+</div>

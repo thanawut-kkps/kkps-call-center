@@ -1,0 +1,13 @@
+﻿@model Dictionary<string, object>
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpAccountPortfolioResultContainer";
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "AccountPortfolioCallbackPanelResultPartial" };
+    settings.ClientSideEvents.BeginCallback = "cbpAccountPortfolioResultContainer_BeginCallback";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("AccountPortfolioResultPartial", new { _accountNumber = Model["selectedAccountNo"], _clientID = Model["clientID"] });    
+    });
+}).GetHtml()

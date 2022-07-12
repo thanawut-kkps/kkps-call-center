@@ -1,0 +1,12 @@
+﻿@model string
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpClientResultContainer";
+    settings.CallbackRouteValues = new { Controller = "Crm", Action = "SearchClientCallbackPanelResultPartial" };
+    settings.ClientSideEvents.BeginCallback = "cbpClientResultContainer_BeginCallback";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("SearchClientResultPartial", new { _searchText = Model });    
+    });
+}).GetHtml()

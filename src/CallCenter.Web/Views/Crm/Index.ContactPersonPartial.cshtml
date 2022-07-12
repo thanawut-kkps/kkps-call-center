@@ -1,0 +1,54 @@
+﻿@model CallCenterGetProfileResult
+@{
+    string col1 = "2";
+    string col2 = "5";
+    string col3 = "2";
+    string col4 = "3";
+}
+<div class="row nomargin sub-title space-above">
+    <div class="col-md-12 nopadding">
+        <i class="fa fa-user"></i>&nbsp;Contact Person
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Contact Name (Thai)</strong>
+    </div>
+    <div class="col-md-@col2 nopadding text-ellipsis verify-contactnamet" data-placement="bottom" data-html="true" data-toggle="tooltip" title="@Model.ContactNameT">
+        @Model.ContactNameT
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>Relationship</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-contactrelationship">
+        @Model.ContactRelationship
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Contact Name (Eng)</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-contactnamee"  data-placement="bottom" data-html="true" data-toggle="tooltip" title="@Model.ContactNameE">
+        @Model.ContactNameE
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>Tel (Office)</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-contactteloffice">
+        @Model.ContactTelOffice
+    </div>
+</div>
+<div class="row nomargin row-detail">
+    <div class="col-md-@col1 nopadding">
+        <strong>Tel (Home)</strong>
+    </div>
+    <div class="col-md-@col2 nopadding verify-contacttelhome">
+        @Model.ContactTelHome
+    </div>
+    <div class="col-md-@col3 nopadding">
+        <strong>Mobile</strong>
+    </div>
+    <div class="col-md-@col4 nopadding verify-contactmobile">
+        @Model.ContactMobile
+    </div>
+</div>

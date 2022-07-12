@@ -1,0 +1,104 @@
+﻿@model string
+@{
+    ViewBag.Title = "Client Selection";
+}
+<div class="panel-gadget">
+    <div class="panel-gadget-header-right">
+        <a href="javascript:void(0);" onclick="lnkBrowseClient_Click()"><i class="fa fa-binoculars">
+        </i>&nbsp;&nbsp;Search Client</a>
+    </div>
+    <div style="clear:both; margin-top:50px;">
+        @Html.Action("ClientSelectionClientListPartial", new { _custormerPhone = Model })
+    </div>
+</div>
+<div class="modal fade" id="selection-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Client Selection</h4>
+            </div>
+            <div class="modal-body" id="selection-dialog-body" data-clientselectionurl='@Url.Action("SearchClientPartialJson", "Crm")'>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section DevexpressScripts
+{
+    <script type="text/javascript">
+
+        function cbpClientResultContainer_BeginCallback(s, e) {
+            e.customArgs['_searchText'] = $("#searchText").val();
+        }
+    </script>
+}
+@section Scripts
+{
+    <script type="text/javascript">        
+        $(document).ready(function () {
+
+
+        });
+
+        function onClientSelected(clientId) {
+
+            var queryString = "";
+
+            var itemKey = "session";
+            var itemValue = getParameterByName(itemKey);
+            if (itemValue != "") {
+
+            }
+
+            location.href = '@Url.Action("Index", "Crm")?nclientid=' + clientId +
+                                getQueryParameterWithValue("client_id") +
+                                getQueryParameterWithValue("accountno") +
+                                getQueryParameterWithValue("session") +
+                                getQueryParameterWithValue("call_starttime") +
+                                getQueryParameterWithValue("customer_phone") +
+                                getQueryParameterWithValue("agent_id") +
+                                getQueryParameterWithValue("extension");
+        }
+
+        function lnkBrowseClient_Click() {
+            popupClientSelectionDialog();
+        }        
+
+//        function onClientSelected(clientId) {
+
+//            var queryString = "";
+
+//            var itemKey = "session";
+//            var itemValue = getParameterByName(itemKey);
+//            if (itemValue != "") {
+
+//            }
+
+//            location.href = '@Url.Action("Index", "Crm")?nclientid=' + clientId + 
+//                                getQueryParameterWithValue("client_id") +
+//                                getQueryParameterWithValue("accountno") +
+//                                getQueryParameterWithValue("session") +
+//                                getQueryParameterWithValue("call_starttime") +
+//                                getQueryParameterWithValue("customer_phone") +
+//                                getQueryParameterWithValue("agent_id") +
+//                                getQueryParameterWithValue("extension");
+
+//        }
+
+        function getQueryParameterWithValue(key) {
+            var itemKey = key;
+            var itemValue = getParameterByName(itemKey);
+            if (itemValue != "") {
+                return "&" + key + "=" + itemValue;
+            }
+            return "";
+        }
+
+    </script>
+}

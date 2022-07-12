@@ -1,0 +1,90 @@
+﻿@model IPagedList<CallCenterGetSearchClientResult>
+@{
+    ViewBag.Title = "Search Client";
+}
+<div id="gridclientresult-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-2 text-center">
+                    AC#
+                </th>
+                <th class="col-md-2 text-center">
+                    Product
+                </th>
+                <th class="col-md-3">
+                    Thai Name
+                </th>
+                <th class="col-md-2">
+                    Englist Name
+                </th>
+                <th class="col-md-2">
+                    Trader (FC)
+                </th>
+                <th class="col-md-1 text-center">
+                    ID
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="text-center">
+                        <a onclick="onClientSelected(@(item.ClientId ?? -1), '@item.AccountNo', '@item.Product')" href="javascript:void(0);" class="account-no-link">@item.AccountNo</a>
+                    </td>
+                    <td>
+                        @item.Product
+                    </td>
+                    <td>
+                        @item.AccountNameT
+                    </td>
+                    <td>
+                        @item.AccountNameE
+                    </td>
+                    <td>
+                        @item.Trader
+                    </td>
+                    <td class="text-center">
+                        <a onclick="onClientSelected(@(item.ClientId ?? -1), '@item.AccountNo', '@item.Product')" href="javascript:void(0);" 
+                                class="account-no-link">@item.PidNo</a>                        
+                    </td>
+                </tr>                     
+                }
+            }
+            else
+            {
+                <tr style="height: 40px;">
+                    <td colspan="6" class="text-center">
+                        There is no data found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pager">
+        @Html.Raw(Ajax.Pager(
+           new Options
+           {
+               PageSize = Model.PageSize,
+               TotalItemCount = Model.TotalItemCount,
+               CurrentPage = Model.PageNumber,
+               ItemTexts = new ItemTexts() { Next = "Next", Previous = "Previous", Page = "" },
+               ItemIcon = new ItemIcon() { First = "icon-backward", Previous = "icon-chevron-left", Next = "icon-chevron-right", Last = "icon-forward" },
+               TooltipTitles = new TooltipTitles() { Next = "Next page", Previous = "Previous page", Page = "Go to page {0}.", First = "Go To First Page", Last = "Go To Last Page" },
+               Size = Size.normal,
+               Alignment = Alignment.centered,
+               IsShowControls = true,
+               IsShowFirstLast = true
+           },
+           new AjaxOptions
+           {
+               UpdateTargetId = "gridclientresult-container" //,
+              // OnBegin = "beginPaging",
+              // OnSuccess = "successPaging",
+              // OnFailure = "failurePaging"
+           }, new { controller = "Crm", action = "SearchClientResultPartial", _searchText = ViewData["SearchText"] }))
+    </div>
+</div>
